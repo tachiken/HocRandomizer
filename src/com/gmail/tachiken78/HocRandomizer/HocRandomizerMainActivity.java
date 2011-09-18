@@ -43,7 +43,7 @@ public class HocRandomizerMainActivity extends Activity {
 		/* 必須カード選択ボタンの設定を行う */
 		Button button01 = (Button)findViewById(R.id.button_id_01);
 		button01.setOnClickListener(new View.OnClickListener() {
-			@Override
+
 			public void onClick(View v) {
 				include_flags_backup = include_flags.clone();
 				new AlertDialog.Builder(HocRandomizerMainActivity.this)
@@ -89,7 +89,7 @@ public class HocRandomizerMainActivity extends Activity {
 		/* 除外カード選択ボタンの設定を行う */
 		Button button02 = (Button)findViewById(R.id.button_id_02);
 		button02.setOnClickListener(new View.OnClickListener() {
-			@Override
+
 			public void onClick(View v) {
 				exclude_flags_backup = exclude_flags.clone();
 				new AlertDialog.Builder(HocRandomizerMainActivity.this)
@@ -135,7 +135,7 @@ public class HocRandomizerMainActivity extends Activity {
 		/* デッキ生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
 		button03.setOnClickListener(new View.OnClickListener() {
-			@Override
+
 			public void onClick(View v) {
 				int choosen_count = 0;
 				HoCCard result_cards[] = new HoCCard[CHOICE_CARD_KINDS_NUMBER];
@@ -159,7 +159,7 @@ public class HocRandomizerMainActivity extends Activity {
 				}
 				ArrayList<HoCCard> result_cards_list = new ArrayList<HoCCard>(Arrays.asList(result_cards));
 				Collections.sort(result_cards_list, new Comparator<HoCCard>(){
-					@Override
+
 					public int compare(HoCCard a, HoCCard b) {
 						return a.cost - b.cost;
 					}

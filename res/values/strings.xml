@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HocRandomizer</string>
+
+	<!-- Object Labels -->
+	<string name="button_label_01">必須カードの選択</string>
+	<string name="button_label_02">除外カードの選択</string>
+	<string name="button_label_03">デッキ生成</string>
+
+	<!-- Card Name List -->
+	<!-- リストは作ってみたものの、結局使わないことに -->
+	<string name="card_name_001">寄付</string>
+	<string name="card_name_002">早馬</string>
+	<string name="card_name_003">願いの泉</string>
+	<string name="card_name_004">城壁</string>
+	<string name="card_name_005">斥候</string>
+	<string name="card_name_006">召集令状</string>
+	<string name="card_name_007">焼き畑農業</string>
+	<string name="card_name_008">隠れ家</string>
+	<string name="card_name_009">交易船</string>
+	<string name="card_name_010">破城槌</string>
+	<string name="card_name_011">買収工作</string>
+	<string name="card_name_012">魔法の護符</string>
+	<string name="card_name_013">埋もれた財宝</string>
+	<string name="card_name_014">追いたてられた魔獣</string>
+	<string name="card_name_015">シノビ</string>
+	<string name="card_name_016">金貸し</string>
+	<string name="card_name_017">図書館</string>
+	<string name="card_name_018">星詠みの魔女</string>
+	<string name="card_name_019">都市開発</string>
+	<string name="card_name_020">歩兵大隊</string>
+	<string name="card_name_021">補給部隊</string>
+	<string name="card_name_022">魅了術の魔女</string>
+	<string name="card_name_023">近衛騎士団</string>
+	<string name="card_name_024">銀行</string>
+	<string name="card_name_025">御用商人</string>
+	<string name="card_name_026">皇帝領</string>
+	<string name="card_name_027">呪詛の魔女</string>
+	<string name="card_name_028">冒険者</string>
+	<string name="card_name_029">錬金術師</string>
+	<string name="card_name_030">噂好きの公爵夫人</string>
+
+</resources>

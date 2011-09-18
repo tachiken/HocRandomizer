@@ -8,10 +8,10 @@ public class HoCCard implements Comparator<HoCCard> {
 
 	/**
 	 * コンストラクタ。
-	 * @param name カード名称
 	 * @param cost コスト
+	 * @param name カード名称
 	 */
-	public HoCCard(String name, int cost) {
+	public HoCCard(int cost, String name) {
 		this.name = name;
 		this.cost = cost;
 	}

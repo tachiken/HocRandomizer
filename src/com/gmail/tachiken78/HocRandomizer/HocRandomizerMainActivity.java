@@ -22,17 +22,17 @@ public class HocRandomizerMainActivity extends Activity {
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
 	 */
-	final static int CHOICE_CARD_KINDS_NUMBER = 10;
+	private static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
 
 	/**
-	 * デフォルトコンストラクタ
+	 * デフォルトコンストラクタ。
 	 */
 	public HocRandomizerMainActivity(){
-		include_flags = new boolean[card_list.length];
-		include_flags_backup = new boolean[card_list.length];
-		exclude_flags = new boolean[card_list.length];
-		exclude_flags_backup = new boolean[card_list.length];
+		include_flags        = new boolean[CARD_LIST.length];
+		include_flags_backup = new boolean[CARD_LIST.length];
+		exclude_flags        = new boolean[CARD_LIST.length];
+		exclude_flags_backup = new boolean[CARD_LIST.length];
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class HocRandomizerMainActivity extends Activity {
 								checked_count++;
 							}
 						}
-						if(checked_count > card_list.length - CHOICE_CARD_KINDS_NUMBER){
+						if(checked_count > CARD_LIST.length - CHOICE_CARD_KINDS_NUMBER){
 							new AlertDialog.Builder(HocRandomizerMainActivity.this)
 							.setMessage("除外したあとの残りのカード種類が" + CHOICE_CARD_KINDS_NUMBER + "未満でした。\n選択した情報は失われます。")
 							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -141,8 +141,8 @@ public class HocRandomizerMainActivity extends Activity {
 				HoCCard result_cards[] = new HoCCard[CHOICE_CARD_KINDS_NUMBER];
 				String result = "";
 
-				ArrayList<HoCCard> card_list_work = new ArrayList<HoCCard>(Arrays.asList(card_list));
-				for(int cnt=card_list.length-1; cnt>=0; cnt--) {
+				ArrayList<HoCCard> card_list_work = new ArrayList<HoCCard>(Arrays.asList(CARD_LIST));
+				for(int cnt=CARD_LIST.length-1; cnt>=0; cnt--) {
 					if(include_flags[cnt]) {
 						result_cards[choosen_count] = card_list_work.remove(cnt);
 						choosen_count++;
@@ -180,45 +180,45 @@ public class HocRandomizerMainActivity extends Activity {
 		});
 	}
 
-	static final HoCCard[] card_list;
+	static final HoCCard[] CARD_LIST;
 	static String[] cardname_list;
 
 	static {
-		card_list = new HoCCard[]{
-				new HoCCard("寄付", 2),
-				new HoCCard("早馬", 2),
-				new HoCCard("願いの泉", 2),
-				new HoCCard("城壁", 2),
-				new HoCCard("斥候", 2),
-				new HoCCard("召集令状", 3),
-				new HoCCard("焼き畑農業", 3),
-				new HoCCard("隠れ家", 3),
-				new HoCCard("交易船", 3),
-				new HoCCard("破城槌", 3),
-				new HoCCard("買収工作", 3),
-				new HoCCard("魔法の護符", 3),
-				new HoCCard("埋もれた財宝", 3),
-				new HoCCard("追いたてられた魔獣", 4),
-				new HoCCard("シノビ", 4),
-				new HoCCard("金貸し", 4),
-				new HoCCard("図書館", 4),
-				new HoCCard("星詠みの魔女", 4),
-				new HoCCard("都市開発", 4),
-				new HoCCard("歩兵大隊", 4),
-				new HoCCard("補給部隊", 4),
-				new HoCCard("魅了術の魔女", 4),
-				new HoCCard("近衛騎士団", 5),
-				new HoCCard("銀行", 5),
-				new HoCCard("御用商人", 5),
-				new HoCCard("皇帝領", 5),
-				new HoCCard("呪詛の魔女", 5),
-				new HoCCard("冒険者", 5),
-				new HoCCard("錬金術師", 5),
-				new HoCCard("噂好きの公爵夫人", 6),
+		CARD_LIST = new HoCCard[]{
+				new HoCCard(2, "寄付"),
+				new HoCCard(2, "早馬"),
+				new HoCCard(2, "願いの泉"),
+				new HoCCard(2, "城壁"),
+				new HoCCard(2, "斥候"),
+				new HoCCard(3, "召集令状"),
+				new HoCCard(3, "焼き畑農業"),
+				new HoCCard(3, "隠れ家"),
+				new HoCCard(3, "交易船"),
+				new HoCCard(3, "破城槌"),
+				new HoCCard(3, "買収工作"),
+				new HoCCard(3, "魔法の護符"),
+				new HoCCard(3, "埋もれた財宝"),
+				new HoCCard(4, "追いたてられた魔獣"),
+				new HoCCard(4, "シノビ"),
+				new HoCCard(4, "金貸し"),
+				new HoCCard(4, "図書館"),
+				new HoCCard(4, "星詠みの魔女"),
+				new HoCCard(4, "都市開発"),
+				new HoCCard(4, "歩兵大隊"),
+				new HoCCard(4, "補給部隊"),
+				new HoCCard(4, "魅了術の魔女"),
+				new HoCCard(5, "近衛騎士団"),
+				new HoCCard(5, "銀行"),
+				new HoCCard(5, "御用商人"),
+				new HoCCard(5, "皇帝領"),
+				new HoCCard(5, "呪詛の魔女"),
+				new HoCCard(5, "冒険者"),
+				new HoCCard(5, "錬金術師"),
+				new HoCCard(6, "噂好きの公爵夫人"),
 		};
-		cardname_list = new String[card_list.length];
-		for(int cnt=0; cnt<card_list.length; cnt++) {
-			cardname_list[cnt] = card_list[cnt].getName();
+		cardname_list = new String[CARD_LIST.length];
+		for(int cnt=0; cnt<CARD_LIST.length; cnt++) {
+			cardname_list[cnt] = CARD_LIST[cnt].getName();
 		}
 	}
 }

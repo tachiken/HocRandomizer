@@ -5,6 +5,7 @@ import java.util.Comparator;
 public class HoCCard implements Comparator<HoCCard> {
 	String name;
 	int cost;
+	Expantion expantion;
 
 	/**
 	 * コンストラクタ。
@@ -12,10 +13,20 @@ public class HoCCard implements Comparator<HoCCard> {
 	 * @param name カード名称
 	 */
 	public HoCCard(int cost, String name) {
-		this.name = name;
-		this.cost = cost;
+		this(cost, name, Expantion.BASIC);
 	}
 
+	/**
+	 * コンストラクタ。
+	 * @param cost コスト
+	 * @param name カード名称
+	 * @param expantion 所属拡張セット
+	 */
+	public HoCCard(int cost, String name, Expantion expantion) {
+		this.name = name;
+		this.cost = cost;
+		this.expantion = expantion;
+	}
 
 	public String getName() {
 		return name;
@@ -28,6 +39,9 @@ public class HoCCard implements Comparator<HoCCard> {
 	}
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	public Expantion getExpantion() {
+		return expantion;
 	}
 
 	@Override

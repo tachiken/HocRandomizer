@@ -13,26 +13,26 @@ import android.view.View;
 import android.widget.Button;
 
 public class HocRandomizerMainActivity extends Activity {
-	boolean[] include_flags;
-	boolean[] include_flags_backup;
-	boolean[] exclude_flags;
-	boolean[] exclude_flags_backup;
+	boolean[] includeFlags;
+	boolean[] includeFlagsBackup;
+	boolean[] excludeFlags;
+	boolean[] excludeFlagsBackup;
 
 
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
 	 */
-	final static int CHOICE_CARD_KINDS_NUMBER = 10;
+	private static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
 	public HocRandomizerMainActivity(){
-		include_flags = new boolean[card_list.length];
-		include_flags_backup = new boolean[card_list.length];
-		exclude_flags = new boolean[card_list.length];
-		exclude_flags_backup = new boolean[card_list.length];
+		includeFlags       = new boolean[CARD_LIST.length];
+		includeFlagsBackup = new boolean[CARD_LIST.length];
+		excludeFlags       = new boolean[CARD_LIST.length];
+		excludeFlagsBackup = new boolean[CARD_LIST.length];
 	}
 
 	@Override
@@ -45,24 +45,24 @@ public class HocRandomizerMainActivity extends Activity {
 		button01.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				include_flags_backup = include_flags.clone();
+				includeFlagsBackup = includeFlags.clone();
 				new AlertDialog.Builder(HocRandomizerMainActivity.this)
 				.setTitle("必ず使用するカードをチェックしてください")
-				.setMultiChoiceItems(cardname_list, include_flags,
+				.setMultiChoiceItems(cardnameList, includeFlags,
 						new DialogInterface.OnMultiChoiceClickListener(){
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-						include_flags[which] = isChecked;
+						includeFlags[which] = isChecked;
 					}
 				})
 				.setPositiveButton("決定", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						int checked_count = 0;
-						for(boolean i : include_flags) {
+						int checkedCount = 0;
+						for(boolean i : includeFlags) {
 							if(i) {
-								checked_count++;
+								checkedCount++;
 							}
 						}
-						if(checked_count > CHOICE_CARD_KINDS_NUMBER){
+						if(checkedCount > CHOICE_CARD_KINDS_NUMBER){
 							new AlertDialog.Builder(HocRandomizerMainActivity.this)
 							.setMessage("選択したカードの種類が" + CHOICE_CARD_KINDS_NUMBER + "を超えていました。\n選択した情報は失われます。")
 							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -71,15 +71,15 @@ public class HocRandomizerMainActivity extends Activity {
 							})
 							.setCancelable(true)
 							.show();
-							include_flags = include_flags_backup.clone();
+							includeFlags = includeFlagsBackup.clone();
 							return;
 						}
-						include_flags_backup = null;
+						includeFlagsBackup = null;
 					}
 				})
 				.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						include_flags = include_flags_backup.clone();
+						includeFlags = includeFlagsBackup.clone();
 					}
 				})
 				.show();
@@ -91,24 +91,25 @@ public class HocRandomizerMainActivity extends Activity {
 		button02.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				exclude_flags_backup = exclude_flags.clone();
+				excludeFlagsBackup = excludeFlags.clone();
+
 				new AlertDialog.Builder(HocRandomizerMainActivity.this)
 				.setTitle("絶対に使用しないカードをチェックしてください")
-				.setMultiChoiceItems(cardname_list, exclude_flags,
+				.setMultiChoiceItems(cardnameList, excludeFlags,
 						new DialogInterface.OnMultiChoiceClickListener(){
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-						exclude_flags[which] = isChecked;
+						excludeFlags[which] = isChecked;
 					}
 				})
 				.setPositiveButton("決定", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						int checked_count = 0;
-						for(boolean i : exclude_flags) {
+						int checkedCount = 0;
+						for(boolean i : excludeFlags) {
 							if(i) {
-								checked_count++;
+								checkedCount++;
 							}
 						}
-						if(checked_count > card_list.length - CHOICE_CARD_KINDS_NUMBER){
+						if(checkedCount > CARD_LIST.length - CHOICE_CARD_KINDS_NUMBER){
 							new AlertDialog.Builder(HocRandomizerMainActivity.this)
 							.setMessage("除外したあとの残りのカード種類が" + CHOICE_CARD_KINDS_NUMBER + "未満でした。\n選択した情報は失われます。")
 							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -117,15 +118,15 @@ public class HocRandomizerMainActivity extends Activity {
 							})
 							.setCancelable(true)
 							.show();
-							exclude_flags = exclude_flags_backup.clone();
+							excludeFlags = excludeFlagsBackup.clone();
 							return;
 						}
-						exclude_flags_backup = null;
+						excludeFlagsBackup = null;
 					}
 				})
 				.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						exclude_flags = exclude_flags_backup.clone();
+						excludeFlags = excludeFlagsBackup.clone();
 					}
 				})
 				.show();
@@ -137,34 +138,34 @@ public class HocRandomizerMainActivity extends Activity {
 		button03.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				int choosen_count = 0;
-				HoCCard result_cards[] = new HoCCard[CHOICE_CARD_KINDS_NUMBER];
+				int choosenCount = 0;
+				HoCCard resultCards[] = new HoCCard[CHOICE_CARD_KINDS_NUMBER];
 				String result = "";
 
-				ArrayList<HoCCard> card_list_work = new ArrayList<HoCCard>(Arrays.asList(card_list));
-				for(int cnt=card_list.length-1; cnt>=0; cnt--) {
-					if(include_flags[cnt]) {
-						result_cards[choosen_count] = card_list_work.remove(cnt);
-						choosen_count++;
+				ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(Arrays.asList(CARD_LIST));
+				for(int cnt=CARD_LIST.length-1; cnt>=0; cnt--) {
+					if(includeFlags[cnt]) {
+						resultCards[choosenCount] = cardListWork.remove(cnt);
+						choosenCount++;
 						continue;
 					}
-					if(exclude_flags[cnt]) {
-						card_list_work.remove(cnt);
+					if(excludeFlags[cnt]) {
+						cardListWork.remove(cnt);
 						continue;
 					}
 				}
-				java.util.Collections.shuffle(card_list_work);
-				for(; choosen_count<CHOICE_CARD_KINDS_NUMBER; choosen_count++) {
-					result_cards[choosen_count] = card_list_work.remove(0);
+				java.util.Collections.shuffle(cardListWork);
+				for(; choosenCount<CHOICE_CARD_KINDS_NUMBER; choosenCount++) {
+					resultCards[choosenCount] = cardListWork.remove(0);
 				}
-				ArrayList<HoCCard> result_cards_list = new ArrayList<HoCCard>(Arrays.asList(result_cards));
-				Collections.sort(result_cards_list, new Comparator<HoCCard>(){
+				ArrayList<HoCCard> resultCardsList = new ArrayList<HoCCard>(Arrays.asList(resultCards));
+				Collections.sort(resultCardsList, new Comparator<HoCCard>(){
 
 					public int compare(HoCCard a, HoCCard b) {
 						return a.cost - b.cost;
 					}
 				});
-				for(HoCCard c : result_cards_list) {
+				for(HoCCard c : resultCardsList) {
 					result += c + "\n";
 				}
 
@@ -180,45 +181,45 @@ public class HocRandomizerMainActivity extends Activity {
 		});
 	}
 
-	static final HoCCard[] card_list;
-	static String[] cardname_list;
+	static final HoCCard[] CARD_LIST;
+	static String[] cardnameList;
 
 	static {
-		card_list = new HoCCard[]{
-				new HoCCard("寄付", 2),
-				new HoCCard("早馬", 2),
-				new HoCCard("願いの泉", 2),
-				new HoCCard("城壁", 2),
-				new HoCCard("斥候", 2),
-				new HoCCard("召集令状", 3),
-				new HoCCard("焼き畑農業", 3),
-				new HoCCard("隠れ家", 3),
-				new HoCCard("交易船", 3),
-				new HoCCard("破城槌", 3),
-				new HoCCard("買収工作", 3),
-				new HoCCard("魔法の護符", 3),
-				new HoCCard("埋もれた財宝", 3),
-				new HoCCard("追いたてられた魔獣", 4),
-				new HoCCard("シノビ", 4),
-				new HoCCard("金貸し", 4),
-				new HoCCard("図書館", 4),
-				new HoCCard("星詠みの魔女", 4),
-				new HoCCard("都市開発", 4),
-				new HoCCard("歩兵大隊", 4),
-				new HoCCard("補給部隊", 4),
-				new HoCCard("魅了術の魔女", 4),
-				new HoCCard("近衛騎士団", 5),
-				new HoCCard("銀行", 5),
-				new HoCCard("御用商人", 5),
-				new HoCCard("皇帝領", 5),
-				new HoCCard("呪詛の魔女", 5),
-				new HoCCard("冒険者", 5),
-				new HoCCard("錬金術師", 5),
-				new HoCCard("噂好きの公爵夫人", 6),
+		CARD_LIST = new HoCCard[]{
+				new HoCCard(2, "寄付"),
+				new HoCCard(2, "早馬"),
+				new HoCCard(2, "願いの泉"),
+				new HoCCard(2, "城壁"),
+				new HoCCard(2, "斥候"),
+				new HoCCard(3, "召集令状"),
+				new HoCCard(3, "焼き畑農業"),
+				new HoCCard(3, "隠れ家"),
+				new HoCCard(3, "交易船"),
+				new HoCCard(3, "破城槌"),
+				new HoCCard(3, "買収工作"),
+				new HoCCard(3, "魔法の護符"),
+				new HoCCard(3, "埋もれた財宝"),
+				new HoCCard(4, "追いたてられた魔獣"),
+				new HoCCard(4, "シノビ"),
+				new HoCCard(4, "金貸し"),
+				new HoCCard(4, "図書館"),
+				new HoCCard(4, "星詠みの魔女"),
+				new HoCCard(4, "都市開発"),
+				new HoCCard(4, "歩兵大隊"),
+				new HoCCard(4, "補給部隊"),
+				new HoCCard(4, "魅了術の魔女"),
+				new HoCCard(5, "近衛騎士団"),
+				new HoCCard(5, "銀行"),
+				new HoCCard(5, "御用商人"),
+				new HoCCard(5, "皇帝領"),
+				new HoCCard(5, "呪詛の魔女"),
+				new HoCCard(5, "冒険者"),
+				new HoCCard(5, "錬金術師"),
+				new HoCCard(6, "噂好きの公爵夫人"),
 		};
-		cardname_list = new String[card_list.length];
-		for(int cnt=0; cnt<card_list.length; cnt++) {
-			cardname_list[cnt] = card_list[cnt].getName();
+		cardnameList = new String[CARD_LIST.length];
+		for(int cnt=0; cnt<CARD_LIST.length; cnt++) {
+			cardnameList[cnt] = CARD_LIST[cnt].getName();
 		}
 	}
 }

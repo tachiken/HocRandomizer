@@ -22,7 +22,7 @@ public class HocRandomizerMainActivity extends Activity {
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
 	 */
-	private static final int CHOICE_CARD_KINDS_NUMBER = 10;
+	public static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
 
 	/**
@@ -42,49 +42,7 @@ public class HocRandomizerMainActivity extends Activity {
 
 		/* 必須カード選択ボタンの設定を行う */
 		Button button01 = (Button)findViewById(R.id.button_id_01);
-		button01.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				includeFlagsBackup = includeFlags.clone();
-				new AlertDialog.Builder(HocRandomizerMainActivity.this)
-				.setTitle("必ず使用するカードをチェックしてください")
-				.setMultiChoiceItems(cardnameList, includeFlags,
-						new DialogInterface.OnMultiChoiceClickListener(){
-					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-						includeFlags[which] = isChecked;
-					}
-				})
-				.setPositiveButton("決定", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						int checkedCount = 0;
-						for(boolean i : includeFlags) {
-							if(i) {
-								checkedCount++;
-							}
-						}
-						if(checkedCount > CHOICE_CARD_KINDS_NUMBER){
-							new AlertDialog.Builder(HocRandomizerMainActivity.this)
-							.setMessage("選択したカードの種類が" + CHOICE_CARD_KINDS_NUMBER + "を超えていました。\n選択した情報は失われます。")
-							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int whichButton) {
-								}
-							})
-							.setCancelable(true)
-							.show();
-							includeFlags = includeFlagsBackup.clone();
-							return;
-						}
-						includeFlagsBackup = null;
-					}
-				})
-				.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						includeFlags = includeFlagsBackup.clone();
-					}
-				})
-				.show();
-			}
-		});
+		button01.setOnClickListener(new MandatorySelectionClickListener(this, cardnameList, includeFlags));
 
 		/* 除外カード選択ボタンの設定を行う */
 		Button button02 = (Button)findViewById(R.id.button_id_02);

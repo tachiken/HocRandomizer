@@ -6,13 +6,14 @@ import com.gmail.tachiken78.HocRandomizer.R.id;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
 public class HocRandomizerMainActivity extends Activity {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
-
+	String[] cardnameList;
 
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
@@ -35,6 +36,29 @@ public class HocRandomizerMainActivity extends Activity {
 		CheckBox checkBox = (CheckBox)findViewById(id.checkbox_id_01);
 		checkBox.setText("極東辺境領を使用する");
 		checkBox.setChecked(true);
+		checkBox.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				CheckBox me = (CheckBox)view;
+				boolean checked = me.isChecked();
+				for(HoCCard card : CARD_LIST){
+					if(card.getExpantion() == Expantion.SECOND){
+						if(checked){
+							includeFlags.put(card, false);
+							excludeFlags.put(card, false);
+						} else {
+							includeFlags.remove(card);
+							excludeFlags.remove(card);
+						}
+					}
+				}
+				refreshClickListener();
+			}
+		});
+		refreshClickListener();
+	}
+
+	private void refreshClickListener() {
+		refreshCardnameList();
 
 		/* 必須カード選択ボタンの設定を行う */
 		Button button01 = (Button)findViewById(R.id.button_id_01);
@@ -49,8 +73,19 @@ public class HocRandomizerMainActivity extends Activity {
 		button03.setOnClickListener(new DeckGenerateClickListener(this, includeFlags, excludeFlags));
 	}
 
+	private void refreshCardnameList() {
+		// カード名リストの再生成を行う
+		// COMMENT: 現状、必須カードリストと除外カードリストに含まれるカードは同一なため、その片方を
+		// COMMENT: ベースにしてカード名リストを生成している。
+		cardnameList = new String[includeFlags.size()];
+		int cnt=0;
+		for(HoCCard card : includeFlags.keySet()){
+			cardnameList[cnt] = card.getName();
+			cnt++;
+		}
+	}
+
 	public static final HoCCard[] CARD_LIST;
-	static String[] cardnameList;
 
 	static {
 		CARD_LIST = new HoCCard[]{
@@ -97,9 +132,5 @@ public class HocRandomizerMainActivity extends Activity {
 				new HoCCard(5, "結盟", Expantion.SECOND),
 				new HoCCard(5, "割り符", Expantion.SECOND),
 		};
-		cardnameList = new String[CARD_LIST.length];
-		for(int cnt=0; cnt<CARD_LIST.length; cnt++) {
-			cardnameList[cnt] = CARD_LIST[cnt].getName();
-		}
 	}
 }

@@ -50,50 +50,7 @@ public class HocRandomizerMainActivity extends Activity {
 
 		/* デッキ生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
-		button03.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				int choosenCount = 0;
-				HoCCard resultCards[] = new HoCCard[CHOICE_CARD_KINDS_NUMBER];
-				String result = "";
-
-				ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(Arrays.asList(CARD_LIST));
-				for(int cnt=CARD_LIST.length-1; cnt>=0; cnt--) {
-					if(includeFlags[cnt]) {
-						resultCards[choosenCount] = cardListWork.remove(cnt);
-						choosenCount++;
-						continue;
-					}
-					if(excludeFlags[cnt]) {
-						cardListWork.remove(cnt);
-						continue;
-					}
-				}
-				java.util.Collections.shuffle(cardListWork);
-				for(; choosenCount<CHOICE_CARD_KINDS_NUMBER; choosenCount++) {
-					resultCards[choosenCount] = cardListWork.remove(0);
-				}
-				ArrayList<HoCCard> resultCardsList = new ArrayList<HoCCard>(Arrays.asList(resultCards));
-				Collections.sort(resultCardsList, new Comparator<HoCCard>(){
-
-					public int compare(HoCCard a, HoCCard b) {
-						return a.cost - b.cost;
-					}
-				});
-				for(HoCCard c : resultCardsList) {
-					result += c + "\n";
-				}
-
-				new AlertDialog.Builder(HocRandomizerMainActivity.this)
-				.setMessage(result)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-					}
-				})
-				.setCancelable(true)
-				.show();
-			}
-		});
+		button03.setOnClickListener(new DeckGenerateClickListener(this, includeFlags, excludeFlags));
 	}
 
 	public static final HoCCard[] CARD_LIST;

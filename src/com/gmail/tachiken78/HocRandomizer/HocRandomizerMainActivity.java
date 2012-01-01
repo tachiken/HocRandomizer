@@ -1,8 +1,11 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import com.gmail.tachiken78.HocRandomizer.R.id;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 public class HocRandomizerMainActivity extends Activity {
 	boolean[] includeFlags;
@@ -31,6 +34,11 @@ public class HocRandomizerMainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		/* 拡張セット選択用チェックボックスの設定を行う */
+		CheckBox checkBox = (CheckBox)findViewById(id.checkbox_id_01);
+		checkBox.setText("極東辺境領を使用する");
+		checkBox.setChecked(true);
 
 		/* 必須カード選択ボタンの設定を行う */
 		Button button01 = (Button)findViewById(R.id.button_id_01);

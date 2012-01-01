@@ -29,8 +29,8 @@ public class DeckGenerateClickListener implements OnClickListener {
 		HoCCard resultCards[] = new HoCCard[HocRandomizerMainActivity.CHOICE_CARD_KINDS_NUMBER];
 		String result = "";
 
-		ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(Arrays.asList(HocRandomizerMainActivity.CARD_LIST));
-		for(int cnt=HocRandomizerMainActivity.CARD_LIST.length-1; cnt>=0; cnt--) {
+		ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(includeFlags.keySet());
+		for(int cnt=includeFlags.size()-1; cnt>=0; cnt--) {
 			if(includeFlags.get(cardListWork.get(cnt))) {
 				resultCards[choosenCount] = cardListWork.remove(cnt);
 				choosenCount++;

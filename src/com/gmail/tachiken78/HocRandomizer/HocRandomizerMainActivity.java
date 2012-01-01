@@ -46,50 +46,7 @@ public class HocRandomizerMainActivity extends Activity {
 
 		/* 除外カード選択ボタンの設定を行う */
 		Button button02 = (Button)findViewById(R.id.button_id_02);
-		button02.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				excludeFlagsBackup = excludeFlags.clone();
-
-				new AlertDialog.Builder(HocRandomizerMainActivity.this)
-				.setTitle("絶対に使用しないカードをチェックしてください")
-				.setMultiChoiceItems(cardnameList, excludeFlags,
-						new DialogInterface.OnMultiChoiceClickListener(){
-					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-						excludeFlags[which] = isChecked;
-					}
-				})
-				.setPositiveButton("決定", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						int checkedCount = 0;
-						for(boolean i : excludeFlags) {
-							if(i) {
-								checkedCount++;
-							}
-						}
-						if(checkedCount > CARD_LIST.length - CHOICE_CARD_KINDS_NUMBER){
-							new AlertDialog.Builder(HocRandomizerMainActivity.this)
-							.setMessage("除外したあとの残りのカード種類が" + CHOICE_CARD_KINDS_NUMBER + "未満でした。\n選択した情報は失われます。")
-							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int whichButton) {
-								}
-							})
-							.setCancelable(true)
-							.show();
-							excludeFlags = excludeFlagsBackup.clone();
-							return;
-						}
-						excludeFlagsBackup = null;
-					}
-				})
-				.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						excludeFlags = excludeFlagsBackup.clone();
-					}
-				})
-				.show();
-			}
-		});
+		button02.setOnClickListener(new ExcludeSelectionClickListener(this, cardnameList, excludeFlags));
 
 		/* デッキ生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
@@ -139,7 +96,7 @@ public class HocRandomizerMainActivity extends Activity {
 		});
 	}
 
-	static final HoCCard[] CARD_LIST;
+	public static final HoCCard[] CARD_LIST;
 	static String[] cardnameList;
 
 	static {

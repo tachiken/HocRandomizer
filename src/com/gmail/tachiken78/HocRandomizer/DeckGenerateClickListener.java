@@ -6,9 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -57,15 +55,6 @@ public class DeckGenerateClickListener implements OnClickListener {
 		for(HoCCard c : resultCardsList) {
 			result += c + "\n";
 		}
-
-		new AlertDialog.Builder(this.context)
-		.setMessage(result)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-			}
-		})
-		.setCancelable(true)
-		.show();
 
 		register.registHistory(result);
 	}

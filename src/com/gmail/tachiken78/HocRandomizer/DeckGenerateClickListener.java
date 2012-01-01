@@ -14,12 +14,14 @@ import android.view.View.OnClickListener;
 
 public class DeckGenerateClickListener implements OnClickListener {
 	Context context;
+	HistoryRegisterable register;
 	LinkedHashMap<HoCCard, Boolean> includeFlags;
 	LinkedHashMap<HoCCard, Boolean> excludeFlags;
 
-	public DeckGenerateClickListener(Context context, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
+	public DeckGenerateClickListener(HocRandomizerMainActivity parent, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
 	{
-		this.context = context;
+		this.context = parent;
+		this.register = parent;
 		this.includeFlags = includeFlags;
 		this.excludeFlags = excludeFlags;
 	}
@@ -64,5 +66,7 @@ public class DeckGenerateClickListener implements OnClickListener {
 		})
 		.setCancelable(true)
 		.show();
+
+		register.registHistory(result);
 	}
 }

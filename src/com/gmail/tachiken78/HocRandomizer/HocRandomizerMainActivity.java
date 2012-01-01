@@ -1,6 +1,8 @@
 package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.LinkedHashMap;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
@@ -10,20 +12,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-public class HocRandomizerMainActivity extends Activity {
+public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	String[] cardnameList;
+	ArrayBlockingQueue<String> historyData = new ArrayBlockingQueue<String>(DEFAULT_HISTORY_MAX);
+	Queue<String> historyQueue = historyData;
 
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
 	 */
 	public static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
+	/**
+	 * デフォルトの履歴保持サイズ
+	 */
+	private static final int DEFAULT_HISTORY_MAX = 3;
+
 	public HocRandomizerMainActivity(){
 		for(HoCCard card : CARD_LIST){
 			includeFlags.put(card, false);
 			excludeFlags.put(card, false);
+		}
+		// 履歴データの初期化
+		// TODO: １．履歴データの不揮発領域からの読み込みを実装要
+		// TODO: ２．履歴データに日付データを付加要
+		// TODO: ３．履歴データの参照方法を追加要
+		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+			historyQueue.add("empty");
 		}
 	}
 
@@ -83,6 +99,11 @@ public class HocRandomizerMainActivity extends Activity {
 			cardnameList[cnt] = card.getName();
 			cnt++;
 		}
+	}
+
+	public void registHistory(String history) {
+		historyQueue.poll();
+		historyQueue.add(history);
 	}
 
 	public static final HoCCard[] CARD_LIST;

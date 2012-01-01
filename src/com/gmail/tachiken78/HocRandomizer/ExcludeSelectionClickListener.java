@@ -1,9 +1,11 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.LinkedHashMap;
+
 import android.content.Context;
 
 public class ExcludeSelectionClickListener extends CardSelectionClickListener {
-	public ExcludeSelectionClickListener(Context context, String[] cardnameList, boolean[] excludeFlags) {
+	public ExcludeSelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags) {
 		super(context, cardnameList, excludeFlags);
 	}
 

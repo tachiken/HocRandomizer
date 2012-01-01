@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,10 +14,10 @@ import android.view.View.OnClickListener;
 
 public class DeckGenerateClickListener implements OnClickListener {
 	Context context;
-	boolean[] includeFlags;
-	boolean[] excludeFlags;
+	LinkedHashMap<HoCCard, Boolean> includeFlags;
+	LinkedHashMap<HoCCard, Boolean> excludeFlags;
 
-	public DeckGenerateClickListener(Context context, boolean[] includeFlags, boolean[] excludeFlags)
+	public DeckGenerateClickListener(Context context, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
 	{
 		this.context = context;
 		this.includeFlags = includeFlags;
@@ -30,12 +31,12 @@ public class DeckGenerateClickListener implements OnClickListener {
 
 		ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(Arrays.asList(HocRandomizerMainActivity.CARD_LIST));
 		for(int cnt=HocRandomizerMainActivity.CARD_LIST.length-1; cnt>=0; cnt--) {
-			if(includeFlags[cnt]) {
+			if(includeFlags.get(cardListWork.get(cnt))) {
 				resultCards[choosenCount] = cardListWork.remove(cnt);
 				choosenCount++;
 				continue;
 			}
-			if(excludeFlags[cnt]) {
+			if(excludeFlags.get(cardListWork.get(cnt))) {
 				cardListWork.remove(cnt);
 				continue;
 			}

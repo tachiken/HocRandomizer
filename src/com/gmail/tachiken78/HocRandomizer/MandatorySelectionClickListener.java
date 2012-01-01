@@ -1,9 +1,11 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.LinkedHashMap;
+
 import android.content.Context;
 
 public class MandatorySelectionClickListener extends CardSelectionClickListener {
-	public MandatorySelectionClickListener(Context context, String[] cardnameList, boolean[] includeFlags) {
+	public MandatorySelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags) {
 		super(context, cardnameList, includeFlags);
 	}
 

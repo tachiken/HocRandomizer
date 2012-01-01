@@ -1,5 +1,7 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.LinkedHashMap;
+
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
 import android.app.Activity;
@@ -8,8 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 public class HocRandomizerMainActivity extends Activity {
-	boolean[] includeFlags = new boolean[CARD_LIST.length];
-	boolean[] excludeFlags = new boolean[CARD_LIST.length];
+	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
+	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 
 
 	/**
@@ -17,6 +19,12 @@ public class HocRandomizerMainActivity extends Activity {
 	 */
 	public static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
+	public HocRandomizerMainActivity(){
+		for(HoCCard card : CARD_LIST){
+			includeFlags.put(card, false);
+			excludeFlags.put(card, false);
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

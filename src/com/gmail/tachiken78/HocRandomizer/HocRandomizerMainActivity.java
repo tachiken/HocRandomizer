@@ -8,10 +8,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 public class HocRandomizerMainActivity extends Activity {
-	boolean[] includeFlags;
-	boolean[] includeFlagsBackup;
-	boolean[] excludeFlags;
-	boolean[] excludeFlagsBackup;
+	boolean[] includeFlags = new boolean[CARD_LIST.length];
+	boolean[] excludeFlags = new boolean[CARD_LIST.length];
 
 
 	/**
@@ -19,16 +17,6 @@ public class HocRandomizerMainActivity extends Activity {
 	 */
 	public static final int CHOICE_CARD_KINDS_NUMBER = 10;
 
-
-	/**
-	 * デフォルトコンストラクタ
-	 */
-	public HocRandomizerMainActivity(){
-		includeFlags       = new boolean[CARD_LIST.length];
-		includeFlagsBackup = new boolean[CARD_LIST.length];
-		excludeFlags       = new boolean[CARD_LIST.length];
-		excludeFlagsBackup = new boolean[CARD_LIST.length];
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

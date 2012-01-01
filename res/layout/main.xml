@@ -4,27 +4,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    />
-<CheckBox android:id="@+id/checkbox_id_01"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="CheckBox"/>
-<Button android:id="@+id/button_id_01"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text= "@string/button_label_01"
-	/>
-<Button android:id="@+id/button_id_02"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text= "@string/button_label_02"
-	/>
-<Button android:id="@+id/button_id_03"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text= "@string/button_label_03"
-	/>
+	<CheckBox android:id="@+id/checkbox_id_01"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:text="CheckBox"/>
+	<Button android:id="@+id/button_id_01"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text= "@string/button_label_01"
+		/>
+	<Button android:id="@+id/button_id_02"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text= "@string/button_label_02"
+		/>
+	<Button android:id="@+id/button_id_03"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text= "@string/button_label_03"
+		/>
 </LinearLayout>

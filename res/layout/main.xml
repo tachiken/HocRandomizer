@@ -23,9 +23,33 @@
 		android:layout_height="wrap_content"
 		android:text= "@string/button_label_03"
 		/>
-	<TextView android:id="@+id/text_id_01"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text=""
-		/>
+	<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    >
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+			<TextView android:id="@+id/text_id_01"
+				android:layout_width="160dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text=""
+				/>
+			<TextView android:id="@+id/text_id_02"
+				android:layout_width="160dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text=""
+				/>
+			<TextView android:id="@+id/text_id_03"
+				android:layout_width="160dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text=""
+				/>
+		</LinearLayout>
+	</HorizontalScrollView>
 </LinearLayout>

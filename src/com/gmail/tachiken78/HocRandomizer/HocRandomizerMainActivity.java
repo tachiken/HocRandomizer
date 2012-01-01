@@ -41,7 +41,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		// TODO: ２．履歴データに日付データを付加要
 		// TODO: ３．履歴データの参照方法を追加要
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			historyQueue.add("empty");
+			historyQueue.add("no history");
 		}
 	}
 
@@ -72,6 +72,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				refreshClickListener();
 			}
 		});
+		refreshHistory();
 		refreshClickListener();
 	}
 
@@ -109,8 +110,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		historyQueue.add(entry);
 
 		// 履歴ビューに最新の生成結果を設定
-		TextView view = (TextView)findViewById(R.id.text_id_01);
-		view.setText(entry);
+		refreshHistory();
 	}
 
 	private String getDate(){
@@ -126,6 +126,15 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		    hour + ":" + minute + ":" + second);
 	}
 
+	private void refreshHistory(){
+		ArrayBlockingQueue<TextView> views = new ArrayBlockingQueue<TextView>(DEFAULT_HISTORY_MAX);
+		views.add((TextView)findViewById(R.id.text_id_03));
+		views.add((TextView)findViewById(R.id.text_id_02));
+		views.add((TextView)findViewById(R.id.text_id_01));
+		for(String s : historyData){
+			views.poll().setText(s);
+		}
+	}
 
 	public static final HoCCard[] CARD_LIST;
 

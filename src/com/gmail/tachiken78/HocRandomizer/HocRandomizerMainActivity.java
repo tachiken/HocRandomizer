@@ -1,5 +1,6 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
@@ -103,8 +105,27 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 
 	public void registHistory(String history) {
 		historyQueue.poll();
-		historyQueue.add(history);
+		String entry = getDate() + "\n" + history;
+		historyQueue.add(entry);
+
+		// 履歴ビューに最新の生成結果を設定
+		TextView view = (TextView)findViewById(R.id.text_id_01);
+		view.setText(entry);
 	}
+
+	private String getDate(){
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		int second = calendar.get(Calendar.SECOND);
+
+		return(year + "/" + (month + 1) + "/" + day + "/" + " " +
+		    hour + ":" + minute + ":" + second);
+	}
+
 
 	public static final HoCCard[] CARD_LIST;
 

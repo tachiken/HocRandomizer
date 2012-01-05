@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
@@ -50,6 +51,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 		/* 拡張セット選択用チェックボックスの設定を行う */
 		CheckBox checkBox = (CheckBox)findViewById(id.checkbox_id_01);
 		checkBox.setText("極東辺境領を使用する");
@@ -74,6 +76,42 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		});
 		refreshHistory();
 		refreshClickListener();
+	}
+
+	public void onStart()
+	{
+		super.onStart();
+		Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+	}
+
+	public void onResume()
+	{
+		super.onResume();
+		Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+	}
+
+	public void onPause()
+	{
+		super.onPause();
+		Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+	}
+
+	public void onStop()
+	{
+		super.onStop();
+		Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+	}
+
+	public void onDestroy()
+	{
+		super.onDestroy();
+		Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
+	}
+
+	public void onRestart()
+	{
+		super.onRestart();
+		Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
 	}
 
 	private void refreshClickListener() {

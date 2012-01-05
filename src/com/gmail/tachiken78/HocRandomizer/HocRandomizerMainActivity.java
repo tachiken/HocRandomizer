@@ -134,8 +134,8 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		int minute = calendar.get(Calendar.MINUTE);
 		int second = calendar.get(Calendar.SECOND);
 
-		return(year + "/" + (month + 1) + "/" + day + "/" + " " +
-		    hour + ":" + minute + ":" + second);
+		return(String.format("%04d/%02d/%02d %02d:%02d:%02d",
+				year, (month + 1), day, hour, minute, second));
 	}
 
 	private void refreshHistory(){

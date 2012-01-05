@@ -8,6 +8,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	String[] cardnameList;
 	ArrayBlockingQueue<String> historyData = new ArrayBlockingQueue<String>(DEFAULT_HISTORY_MAX);
 	Queue<String> historyQueue = historyData;
+	SharedPreferences pref;
 
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
@@ -72,8 +75,14 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				refreshClickListener();
 			}
 		});
+		LoadHistoryFromLocal();
 		refreshHistory();
 		refreshClickListener();
+	}
+
+	public void onStop(){
+		super.onStop();
+		SaveHistoryToLocal();
 	}
 
 	private void refreshClickListener() {
@@ -104,9 +113,12 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		}
 	}
 
-	public void registHistory(String history) {
+	public void registHistory(String history, boolean addDate) {
 		historyQueue.poll();
-		String entry = getDate() + "\n" + history;
+		String entry = history;
+		if(addDate){
+			entry = getDate() + "\n" + history;
+		}
 		historyQueue.add(entry);
 
 		// 履歴ビューに最新の生成結果を設定
@@ -133,6 +145,34 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		views.add((TextView)findViewById(R.id.text_id_01));
 		for(String s : historyData){
 			views.poll().setText(s);
+		}
+	}
+
+	private void preparePreference(){
+		if(null == pref){
+			pref = getPreferences(MODE_PRIVATE);
+		}
+	}
+
+	private void SaveHistoryToLocal(){
+		preparePreference();
+		Editor editor = pref.edit();
+		int i=0;
+		for(String s : historyData){
+			editor.putString("history" + i, s);
+			i++;
+		}
+		editor.commit();
+	}
+
+	private void LoadHistoryFromLocal(){
+		preparePreference();
+		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+			String s = pref.getString("history" + i, "no history");
+			if("no history".equals(s)){
+				continue;
+			}
+			registHistory(s, false);
 		}
 	}
 

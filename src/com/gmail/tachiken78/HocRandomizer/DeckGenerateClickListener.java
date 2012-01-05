@@ -56,6 +56,6 @@ public class DeckGenerateClickListener implements OnClickListener {
 			result += c + "\n";
 		}
 
-		register.registHistory(result);
+		register.registHistory(result, true);
 	}
 }

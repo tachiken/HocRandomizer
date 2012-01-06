@@ -6,6 +6,8 @@
 	<string name="button_label_01">必須カードの選択</string>
 	<string name="button_label_02">除外カードの選択</string>
 	<string name="button_label_03">デッキ生成</string>
+	<string name="button_label_04">リセット</string>
+	<string name="button_label_05">リセット</string>
 
 	<!-- Card Name List -->
 	<!-- リストは作ってみたものの、結局使わないことに -->

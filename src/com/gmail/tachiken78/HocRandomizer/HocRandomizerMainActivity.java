@@ -2,6 +2,7 @@ package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
@@ -104,6 +106,26 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		/* デッキ生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
 		button03.setOnClickListener(new DeckGenerateClickListener(this, includeFlags, excludeFlags));
+
+		/* 必須カードリセットボタンの設定を行う */
+		Button button04 = (Button)findViewById(R.id.button_id_04);
+		button04.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				for(HoCCard card : includeFlags.keySet()){
+					includeFlags.put(card, false);
+				}
+			}
+		});
+
+		/* 除外カードリセットボタンの設定を行う */
+		Button button05 = (Button)findViewById(R.id.button_id_05);
+		button05.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				for(HoCCard card : excludeFlags.keySet()){
+					excludeFlags.put(card, false);
+				}
+			}
+		});
 	}
 
 	private void refreshCardnameList() {

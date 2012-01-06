@@ -2,7 +2,6 @@ package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 

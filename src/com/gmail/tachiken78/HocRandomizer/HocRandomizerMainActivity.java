@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
@@ -261,11 +262,21 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		layout.setOrientation(LinearLayout.HORIZONTAL);
 		parent.addView(layout);
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			TextView view = new TextView(this);
-			view.setWidth(HISTORY_VIEW_WIDTH);
-			view.setHeight(HISTORY_VIEW_HEIGHT);
-			view.setTag(i);
-			layout.addView(view);
+			final TextView textView = new TextView(this);
+			textView.setWidth(HISTORY_VIEW_WIDTH);
+			textView.setHeight(HISTORY_VIEW_HEIGHT);
+			textView.setTag(i);
+			textView.setOnLongClickListener(new OnLongClickListener() {
+				public boolean onLongClick(View view) {
+					Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+					CharSequence str = textView.getText();
+					intent.setType("text/plain")
+						.putExtra(Intent.EXTRA_TEXT, str);
+					startActivity(Intent.createChooser(intent, "デッキ情報の共有"));
+					return true;
+				}
+			});
+			layout.addView(textView);
 		}
 	}
 

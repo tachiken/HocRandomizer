@@ -9,6 +9,9 @@
 	<string name="button_label_04">リセット</string>
 	<string name="button_label_05">リセット</string>
 
+	<!--Menu Labels -->
+	<string name="menu_label_01">生成履歴の削除</string>
+
 	<!-- Card Name List -->
 	<!-- リストは作ってみたものの、結局使わないことに -->
 	<string name="card_name_001">寄付</string>

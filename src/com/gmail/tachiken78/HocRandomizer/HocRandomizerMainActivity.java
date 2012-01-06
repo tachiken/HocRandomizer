@@ -9,9 +9,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -90,6 +94,37 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	public void onStop(){
 		super.onStop();
 		SaveHistoryToLocal();
+	}
+
+	public boolean onCreateOptionsMenu(android.view.Menu menu){
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch(item.getItemId()){
+		case R.id.menu_dialog_id_01:
+			onDeleteMenuSelected();
+			break;
+		}
+		return true;
+	}
+
+	private void onDeleteMenuSelected(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("履歴の削除")
+		.setMessage("全ての生成履歴を削除してよろしいですか？")
+		.setPositiveButton("削除する", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				DeleteHistory();
+			}
+		})
+		.setNegativeButton("キャンセル", null)
+		.create()
+		.show();
 	}
 
 	private void refreshClickListener() {
@@ -201,6 +236,16 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			String s = pref.getString(HISTORY_PREFIX + i, DEFAULT_HISTORY_MESSAGE);
 			registHistory(s, false);
 		}
+	}
+
+	private void DeleteHistory(){
+		preparePreference();
+		Editor editor = pref.edit();
+		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+			editor.putString(HISTORY_PREFIX + i, DEFAULT_HISTORY_MESSAGE);
+		}
+		editor.commit();
+		LoadHistoryFromLocal();
 	}
 
 	private void prepareTextViewsForHistory(){

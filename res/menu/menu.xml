@@ -4,4 +4,8 @@
 		android:title="@string/menu_label_01"
 		android:icon="@android:drawable/ic_menu_delete"
 		android:numericShortcut="1" />
+	<item android:id="@+id/menu_dialog_id_02"
+		android:title="@string/menu_label_02"
+		android:icon="@*android:drawable/ic_menu_home"
+		android:numericShortcut="2" />
 </menu>

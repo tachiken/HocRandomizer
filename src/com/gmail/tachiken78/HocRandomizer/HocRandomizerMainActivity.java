@@ -11,8 +11,10 @@ import com.gmail.tachiken78.HocRandomizer.R.id;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -108,6 +110,11 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		switch(item.getItemId()){
 		case R.id.menu_dialog_id_01:
 			onDeleteMenuSelected();
+			break;
+		case R.id.menu_dialog_id_02:
+			Intent intent=new Intent("android.intent.action.VIEW",
+				Uri.parse("http://twitter.com/intent/user?screen_name=HeartOfCrown"));
+			startActivity(intent);
 			break;
 		}
 		return true;

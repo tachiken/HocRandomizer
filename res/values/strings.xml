@@ -11,6 +11,7 @@
 
 	<!--Menu Labels -->
 	<string name="menu_label_01">生成履歴の削除</string>
+	<string name="menu_label_02">公式Twitter</string>
 
 	<!-- Card Name List -->
 	<!-- リストは作ってみたものの、結局使わないことに -->

@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
@@ -34,17 +36,19 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	 */
 	private static final int DEFAULT_HISTORY_MAX = 3;
 
+	private static final String HISTORY_PREFIX = "history";
+	private static final String DEFAULT_HISTORY_MESSAGE = "no history";
+	private static final int HISTORY_VIEW_WIDTH = 160;
+	private static final int HISTORY_VIEW_HEIGHT = 200;
+
 	public HocRandomizerMainActivity(){
 		for(HoCCard card : CARD_LIST){
 			includeFlags.put(card, false);
 			excludeFlags.put(card, false);
 		}
 		// 履歴データの初期化
-		// TODO: １．履歴データの不揮発領域からの読み込みを実装要
-		// TODO: ２．履歴データに日付データを付加要
-		// TODO: ３．履歴データの参照方法を追加要
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			historyQueue.add("no history");
+			historyQueue.add("");
 		}
 	}
 
@@ -75,6 +79,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				refreshClickListener();
 			}
 		});
+		prepareTextViewsForHistory();
 		LoadHistoryFromLocal();
 		refreshHistory();
 		refreshClickListener();
@@ -139,12 +144,15 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	}
 
 	private void refreshHistory(){
-		ArrayBlockingQueue<TextView> views = new ArrayBlockingQueue<TextView>(DEFAULT_HISTORY_MAX);
-		views.add((TextView)findViewById(R.id.text_id_03));
-		views.add((TextView)findViewById(R.id.text_id_02));
-		views.add((TextView)findViewById(R.id.text_id_01));
+		HorizontalScrollView parent = (HorizontalScrollView)findViewById(R.id.horizontal_scroll_view_id_01);
+		LinearLayout layout = (LinearLayout)parent.getChildAt(0);
+		int tag = DEFAULT_HISTORY_MAX - 1;
 		for(String s : historyData){
-			views.poll().setText(s);
+			TextView view = (TextView)layout.findViewWithTag(tag);
+			if(null != view){
+				view.setText(s);
+			}
+			tag--;
 		}
 	}
 
@@ -159,7 +167,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		Editor editor = pref.edit();
 		int i=0;
 		for(String s : historyData){
-			editor.putString("history" + i, s);
+			editor.putString(HISTORY_PREFIX + i, s);
 			i++;
 		}
 		editor.commit();
@@ -168,13 +176,25 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void LoadHistoryFromLocal(){
 		preparePreference();
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			String s = pref.getString("history" + i, "no history");
-			if("no history".equals(s)){
-				continue;
-			}
+			String s = pref.getString(HISTORY_PREFIX + i, DEFAULT_HISTORY_MESSAGE);
 			registHistory(s, false);
 		}
 	}
+
+	private void prepareTextViewsForHistory(){
+		HorizontalScrollView parent = (HorizontalScrollView)findViewById(R.id.horizontal_scroll_view_id_01);
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.HORIZONTAL);
+		parent.addView(layout);
+		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+			TextView view = new TextView(this);
+			view.setWidth(HISTORY_VIEW_WIDTH);
+			view.setHeight(HISTORY_VIEW_HEIGHT);
+			view.setTag(i);
+			layout.addView(view);
+		}
+	}
+
 
 	public static final HoCCard[] CARD_LIST;
 

@@ -13,6 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuInflater;
@@ -120,6 +123,9 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		case R.id.menu_dialog_id_03:
 			onHelpMenuSelected();
 			break;
+		case R.id.menu_dialog_id_04:
+			onAboutMenuSelected();
+			break;
 		}
 		return true;
 	}
@@ -147,6 +153,36 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		.setPositiveButton("閉じる", null)
 		.create()
 		.show();
+	}
+
+	private void onAboutMenuSelected(){
+		ViewGroup root = (ViewGroup)findViewById(R.id.layout_about_root);
+		View layout = getLayoutInflater().inflate(R.layout.about, root);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("このアプリについて")
+		.setView(layout)
+		.setPositiveButton("作者Twitter", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent=new Intent("android.intent.action.VIEW",
+						Uri.parse("http://twitter.com/intent/user?screen_name=CoolTachiken"));
+				startActivity(intent);
+			}
+		})
+		.setNegativeButton("閉じる", null)
+		.create()
+		.show();
+
+		// バージョン情報の設定
+		PackageInfo info = null;
+		try{
+			info = getPackageManager().getPackageInfo("com.gmail.tachiken78.HocRandomizer", PackageManager.GET_META_DATA);
+		} catch (NameNotFoundException e){
+			e.printStackTrace();
+		}
+		TextView view = (TextView)layout.findViewById(R.id.version_container);
+		if(null != view){
+			view.setText(info.versionName);
+		}
 	}
 
 	private void refreshClickListener() {

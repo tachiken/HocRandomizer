@@ -12,4 +12,8 @@
 		android:title="@string/menu_label_03"
 		android:icon="@*android:drawable/ic_menu_help"
 		android:numericShortcut="3" />
+	<item android:id="@+id/menu_dialog_id_04"
+		android:title="@string/menu_label_04"
+		android:icon="@android:drawable/ic_menu_info_details"
+		android:numericShortcut="4" />
 </menu>

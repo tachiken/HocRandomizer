@@ -13,6 +13,7 @@
 	<string name="menu_label_01">生成履歴の削除</string>
 	<string name="menu_label_02">公式Twitter</string>
 	<string name="menu_label_03">ヘルプ</string>
+	<string name="menu_label_04">このアプリについて</string>
 
 	<!--Help Text -->
 	<string name="help_text">このアプリケーションでは以下のようなことができます。\n
@@ -24,6 +25,10 @@
 				・必須と除外両方に指定した場合、必須指定が優先されます。\n
 				・デッキ情報を他アプリケーションと共有するには、履歴表示部分を長押しして下さい。\n
 				</string>
+
+	<string name="version_header">バージョン：</string>
+	<string name="author_info">作者　　　：Tachiken</string>
+	<string name="last_update">最終更新日：2012/01/06</string>
 
 	<!-- Card Name List -->
 	<!-- リストは作ってみたものの、結局使わないことに -->

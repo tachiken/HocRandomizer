@@ -34,7 +34,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	/**
 	 * デフォルトの履歴保持サイズ
 	 */
-	private static final int DEFAULT_HISTORY_MAX = 3;
+	private static final int DEFAULT_HISTORY_MAX = 10;
 
 	private static final String HISTORY_PREFIX = "history";
 	private static final String DEFAULT_HISTORY_MESSAGE = "no history";

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
@@ -117,6 +118,9 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				Uri.parse("http://twitter.com/intent/user?screen_name=HeartOfCrown"));
 			startActivity(intent);
 			break;
+		case R.id.menu_dialog_id_03:
+			onHelpMenuSelected();
+			break;
 		}
 		return true;
 	}
@@ -131,6 +135,17 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			}
 		})
 		.setNegativeButton("キャンセル", null)
+		.create()
+		.show();
+	}
+
+	private void onHelpMenuSelected(){
+		ViewGroup root = (ViewGroup)findViewById(R.id.layout_help_root);
+		View layout = getLayoutInflater().inflate(R.layout.help, root);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("ヘルプ")
+		.setView(layout)
+		.setPositiveButton("閉じる", null)
 		.create()
 		.show();
 	}

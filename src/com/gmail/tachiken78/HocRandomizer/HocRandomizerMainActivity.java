@@ -50,8 +50,8 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 
 	private static final String HISTORY_PREFIX = "history";
 	private static final String DEFAULT_HISTORY_MESSAGE = "no history";
-	private static final int HISTORY_VIEW_WIDTH = 160;
-	private static final int HISTORY_VIEW_HEIGHT = 200;
+	private static final int HISTORY_VIEW_WIDTH = 320;
+	private static final int HISTORY_VIEW_HEIGHT = 400;
 
 	public HocRandomizerMainActivity(){
 		for(HoCCard card : CARD_LIST){

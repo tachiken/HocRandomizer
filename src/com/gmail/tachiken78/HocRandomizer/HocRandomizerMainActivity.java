@@ -319,7 +319,11 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			textView.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View view) {
 					Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-					CharSequence str = textView.getText();
+					// COMMENT: 外部アプリへの送信用フォーマット調整
+					String str = textView.getText().toString()
+						.replaceAll("\n", ",")
+						.replaceFirst(",", " ")
+						.replaceAll(",$", "");
 					intent.setType("text/plain")
 						.putExtra(Intent.EXTRA_TEXT, str);
 					startActivity(Intent.createChooser(intent, "デッキ情報の共有"));

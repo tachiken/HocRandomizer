@@ -318,15 +318,38 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			textView.setTag(i);
 			textView.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View view) {
-					Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-					// COMMENT: 外部アプリへの送信用フォーマット調整
-					String str = textView.getText().toString()
-						.replaceAll("\n", ",")
-						.replaceFirst(",", " ")
-						.replaceAll(",$", "");
-					intent.setType("text/plain")
-						.putExtra(Intent.EXTRA_TEXT, str);
-					startActivity(Intent.createChooser(intent, "デッキ情報の共有"));
+					final CharSequence[] items = {"Twitterでつぶやく", "その他のアプリと連携" };
+					AlertDialog.Builder builder = new AlertDialog.Builder(HocRandomizerMainActivity.this)
+						.setTitle("連携アプリ選択")
+						.setItems(items, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								// COMMENT: 外部アプリへの送信用フォーマット調整
+								String str = textView.getText().toString()
+									.replaceAll("\n", ",")
+									.replaceFirst(",", " ")
+									.replaceAll(",$", "");
+								switch(which){
+								// Twitterでつぶやく
+								case 0:
+									{
+										Intent intent=new Intent("android.intent.action.VIEW",
+												Uri.parse("http://twitter.com/intent/tweet?text=" + str + "&hashtags=hatokurandom"));
+										startActivity(intent);
+									}
+									break;
+								// その他のアプリと連携
+								case 1:
+									{
+										Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+										intent.setType("text/plain")
+											.putExtra(Intent.EXTRA_TEXT, str);
+										startActivity(Intent.createChooser(intent, "カードセット情報の共有"));
+									}
+									break;
+								}
+							}
+						});
+					builder.create().show();
 					return true;
 				}
 			});

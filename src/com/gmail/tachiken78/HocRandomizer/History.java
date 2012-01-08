@@ -47,22 +47,29 @@ public class History implements Serializable {
 	}
 
 	public String getStringForExternalApp() {
-		return "hoge";
+		return getString(",", false);
 	}
 
 	public String getStringForView() {
+		return getString("\n", true);
+	}
+
+	private String getString(String delimiter, boolean addDate) {
+
 		if (this == EMPTY) {
-			return "no history";
+			return "no history!";
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append(date);
-		sb.append("\n");
+		if (addDate) {
+			sb.append(date);
+			sb.append(delimiter);
+		}
 		for (HoCCard card : cardList) {
 			if (card == null) {
 				return "";
 			}
 			sb.append(card.getName());
-			sb.append("\n");
+			sb.append(delimiter);
 		}
 		return sb.toString();
 	}

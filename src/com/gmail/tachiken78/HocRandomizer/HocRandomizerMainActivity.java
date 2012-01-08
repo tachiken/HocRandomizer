@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -35,7 +34,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	String[] cardnameList;
-	ArrayBlockingQueue<History> historyData = new ArrayBlockingQueue<History>(DEFAULT_HISTORY_MAX);
+	List<History> historyData = new ArrayList<History>(DEFAULT_HISTORY_MAX);
 	SharedPreferences pref;
 
 	/**
@@ -234,7 +233,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	}
 
 	public void registHistory(List<HoCCard> cardList, boolean addDate) {
-		historyData.poll();
+		historyData.remove(0);
 		History history = createHistory(cardList);
 		if(addDate){
 			history.setDate(getDate());
@@ -261,13 +260,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void refreshHistory(){
 		HorizontalScrollView parent = (HorizontalScrollView)findViewById(R.id.horizontal_scroll_view_id_01);
 		LinearLayout layout = (LinearLayout)parent.getChildAt(0);
-		int tag = DEFAULT_HISTORY_MAX - 1;
+		int tag = 0;
 		for(History history : historyData){
 			TextView view = (TextView)layout.findViewWithTag(tag);
 			if(null != view){
 				view.setText(history.getStringForView());
 			}
-			tag--;
+			tag++;
 		}
 	}
 
@@ -321,7 +320,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.HORIZONTAL);
 		parent.addView(layout);
-		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+		for (int i = DEFAULT_HISTORY_MAX - 1; i >= 0; i--) {
 			final TextView textView = new TextView(this);
 			textView.setWidth(HISTORY_VIEW_WIDTH);
 			textView.setHeight(HISTORY_VIEW_HEIGHT);
@@ -333,11 +332,9 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 						.setTitle("連携アプリ選択")
 						.setItems(items, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
-								// COMMENT: 外部アプリへの送信用フォーマット調整
-								String str = textView.getText().toString()
-									.replaceAll("\n", ",")
-									.replaceFirst(",", " ")
-									.replaceAll(",$", "");
+								Integer number = (Integer) textView.getTag();
+								String str = historyData.get(number).getStringForExternalApp();
+
 								switch(which){
 								// Twitterでつぶやく
 								case 0:

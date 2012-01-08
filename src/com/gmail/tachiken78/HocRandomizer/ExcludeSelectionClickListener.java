@@ -14,7 +14,7 @@ public class ExcludeSelectionClickListener extends CardSelectionClickListener {
 	}
 
 	protected boolean isCheckedCountVaild(int checkedCount) {
-		return checkedCount > HocRandomizerMainActivity.CARD_LIST.length - HocRandomizerMainActivity.CHOICE_CARD_KINDS_NUMBER;
+		return checkedCount > HoCCardFactory.getCardList().length - HocRandomizerMainActivity.CHOICE_CARD_KINDS_NUMBER;
 	}
 
 	protected String errorMessageForCheckedCount() {

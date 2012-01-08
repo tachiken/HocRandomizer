@@ -1,10 +1,12 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.List;
+
 public interface HistoryRegisterable {
 	/**
 	 * 生成したデッキデータの履歴を登録する。
-	 * @param history 履歴情報
+	 * @param cardList カードリスト
 	 * @param addDate 日時情報を新たに付加するかどうか
 	 */
-	void registHistory(String history, boolean addDate);
+	void registHistory(List<HoCCard> cardList, boolean addDate);
 }

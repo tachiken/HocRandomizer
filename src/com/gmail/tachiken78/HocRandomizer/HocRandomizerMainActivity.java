@@ -2,10 +2,7 @@ package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
-
-import com.gmail.tachiken78.HocRandomizer.R.id;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,21 +18,22 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gmail.tachiken78.HocRandomizer.R.id;
+
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	String[] cardnameList;
 	ArrayBlockingQueue<String> historyData = new ArrayBlockingQueue<String>(DEFAULT_HISTORY_MAX);
-	Queue<String> historyQueue = historyData;
 	SharedPreferences pref;
 
 	/**
@@ -60,7 +58,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		}
 		// 履歴データの初期化
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			historyQueue.add("");
+			historyData.add("");
 		}
 	}
 
@@ -234,12 +232,12 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	}
 
 	public void registHistory(String history, boolean addDate) {
-		historyQueue.poll();
+		historyData.poll();
 		String entry = history;
 		if(addDate){
 			entry = getDate() + "\n" + history;
 		}
-		historyQueue.add(entry);
+		historyData.add(entry);
 
 		// 履歴ビューに最新の生成結果を設定
 		refreshHistory();

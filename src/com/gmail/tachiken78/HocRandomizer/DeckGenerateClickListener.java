@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 
+import com.gmail.tachiken78.HocRandomizer.util.Utility;
+
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +54,6 @@ public class DeckGenerateClickListener implements OnClickListener {
 			}
 		});
 
-		register.registHistory(resultCardsList, true);
+		register.registHistory(resultCardsList, Utility.getDate());
 	}
 }

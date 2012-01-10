@@ -6,7 +6,7 @@ public interface HistoryRegisterable {
 	/**
 	 * 生成したデッキデータの履歴を登録する。
 	 * @param cardList カードリスト
-	 * @param addDate 日時情報を新たに付加するかどうか
+	 * @param date 日付文字列
 	 */
-	void registHistory(List<HoCCard> cardList, boolean addDate);
+	void registHistory(List<HoCCard> cardList, String date);
 }

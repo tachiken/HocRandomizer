@@ -1,7 +1,6 @@
 package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -232,29 +231,16 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		}
 	}
 
-	public void registHistory(List<HoCCard> cardList, boolean addDate) {
+	public void registHistory(List<HoCCard> cardList, String date) {
 		historyData.remove(0);
 		History history = createHistory(cardList);
-		if(addDate){
-			history.setDate(getDate());
+		if (date != null) {
+			history.setDate(date);
 		}
 		historyData.add(history);
 
 		// 履歴ビューに最新の生成結果を設定
 		refreshHistory();
-	}
-
-	private String getDate(){
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		int minute = calendar.get(Calendar.MINUTE);
-		int second = calendar.get(Calendar.SECOND);
-
-		return(String.format("%04d/%02d/%02d %02d:%02d:%02d",
-				year, (month + 1), day, hour, minute, second));
 	}
 
 	private void refreshHistory(){
@@ -282,6 +268,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		int i = 0;
 		for(History history : historyData){
 			int k = 0;
+			editor.putString(HISTORY_PREFIX + i + "_date", history.getDate());
 			for (HoCCard card : history.getCardList()) {
 				editor.putString(HISTORY_PREFIX + i + "_" + k, card.getName());
 				k++;
@@ -295,11 +282,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		preparePreference();
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
 			List<HoCCard> cardList = new ArrayList<HoCCard>(CHOICE_CARD_KINDS_NUMBER);
+
+			String date = pref.getString(HISTORY_PREFIX + i + "_date", null);
 			for (int k = 0; k < CHOICE_CARD_KINDS_NUMBER; k++) {
 				String cardName = pref.getString(HISTORY_PREFIX + i + "_" + k, DEFAULT_HISTORY_MESSAGE);
 				cardList.add(HoCCardFactory.get(cardName));
 			}
-			registHistory(cardList, false);
+			registHistory(cardList, date);
 		}
 	}
 

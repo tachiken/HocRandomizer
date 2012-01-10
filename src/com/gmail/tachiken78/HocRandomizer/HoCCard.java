@@ -3,9 +3,9 @@ package com.gmail.tachiken78.HocRandomizer;
 import java.util.Comparator;
 
 public class HoCCard implements Comparator<HoCCard> {
-	String name;
-	int cost;
-	Expantion expantion;
+	private String name;
+	private int cost;
+	private Expantion expantion;
 
 	/**
 	 * コンストラクタ。

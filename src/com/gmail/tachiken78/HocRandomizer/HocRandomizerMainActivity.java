@@ -1,11 +1,9 @@
 package com.gmail.tachiken78.HocRandomizer;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-
-import com.gmail.tachiken78.HocRandomizer.R.id;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,21 +19,22 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gmail.tachiken78.HocRandomizer.R.id;
+
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	String[] cardnameList;
-	ArrayBlockingQueue<String> historyData = new ArrayBlockingQueue<String>(DEFAULT_HISTORY_MAX);
-	Queue<String> historyQueue = historyData;
+	List<History> historyData = new ArrayList<History>(DEFAULT_HISTORY_MAX);
 	SharedPreferences pref;
 
 	/**
@@ -54,13 +53,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private static final int HISTORY_VIEW_HEIGHT = 400;
 
 	public HocRandomizerMainActivity(){
-		for(HoCCard card : CARD_LIST){
+		for(HoCCard card : HoCCardFactory.getCardList()){
 			includeFlags.put(card, false);
 			excludeFlags.put(card, false);
 		}
 		// 履歴データの初期化
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			historyQueue.add("");
+			historyData.add(History.EMPTY);
 		}
 	}
 
@@ -77,7 +76,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			public void onClick(View view) {
 				CheckBox me = (CheckBox)view;
 				boolean checked = me.isChecked();
-				for(HoCCard card : CARD_LIST){
+				for(HoCCard card : HoCCardFactory.getCardList()){
 					if(card.getExpantion() == Expantion.SECOND){
 						if(checked){
 							includeFlags.put(card, false);
@@ -233,13 +232,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		}
 	}
 
-	public void registHistory(String history, boolean addDate) {
-		historyQueue.poll();
-		String entry = history;
+	public void registHistory(List<HoCCard> cardList, boolean addDate) {
+		historyData.remove(0);
+		History history = createHistory(cardList);
 		if(addDate){
-			entry = getDate() + "\n" + history;
+			history.setDate(getDate());
 		}
-		historyQueue.add(entry);
+		historyData.add(history);
 
 		// 履歴ビューに最新の生成結果を設定
 		refreshHistory();
@@ -261,13 +260,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void refreshHistory(){
 		HorizontalScrollView parent = (HorizontalScrollView)findViewById(R.id.horizontal_scroll_view_id_01);
 		LinearLayout layout = (LinearLayout)parent.getChildAt(0);
-		int tag = DEFAULT_HISTORY_MAX - 1;
-		for(String s : historyData){
+		int tag = 0;
+		for(History history : historyData){
 			TextView view = (TextView)layout.findViewWithTag(tag);
 			if(null != view){
-				view.setText(s);
+				view.setText(history.getStringForView());
 			}
-			tag--;
+			tag++;
 		}
 	}
 
@@ -280,9 +279,13 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void SaveHistoryToLocal(){
 		preparePreference();
 		Editor editor = pref.edit();
-		int i=0;
-		for(String s : historyData){
-			editor.putString(HISTORY_PREFIX + i, s);
+		int i = 0;
+		for(History history : historyData){
+			int k = 0;
+			for (HoCCard card : history.getCardList()) {
+				editor.putString(HISTORY_PREFIX + i + "_" + k, card.getName());
+				k++;
+			}
 			i++;
 		}
 		editor.commit();
@@ -291,8 +294,12 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void LoadHistoryFromLocal(){
 		preparePreference();
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			String s = pref.getString(HISTORY_PREFIX + i, DEFAULT_HISTORY_MESSAGE);
-			registHistory(s, false);
+			List<HoCCard> cardList = new ArrayList<HoCCard>(CHOICE_CARD_KINDS_NUMBER);
+			for (int k = 0; k < CHOICE_CARD_KINDS_NUMBER; k++) {
+				String cardName = pref.getString(HISTORY_PREFIX + i + "_" + k, DEFAULT_HISTORY_MESSAGE);
+				cardList.add(HoCCardFactory.get(cardName));
+			}
+			registHistory(cardList, false);
 		}
 	}
 
@@ -300,7 +307,9 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		preparePreference();
 		Editor editor = pref.edit();
 		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
-			editor.putString(HISTORY_PREFIX + i, DEFAULT_HISTORY_MESSAGE);
+			for (int k = 0; k < CHOICE_CARD_KINDS_NUMBER; k++) {
+				editor.remove(HISTORY_PREFIX + i + "_" + k);
+			}
 		}
 		editor.commit();
 		LoadHistoryFromLocal();
@@ -311,7 +320,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		LinearLayout layout = new LinearLayout(this);
 		layout.setOrientation(LinearLayout.HORIZONTAL);
 		parent.addView(layout);
-		for(int i=0; i<DEFAULT_HISTORY_MAX; i++){
+		for (int i = DEFAULT_HISTORY_MAX - 1; i >= 0; i--) {
 			final TextView textView = new TextView(this);
 			textView.setWidth(HISTORY_VIEW_WIDTH);
 			textView.setHeight(HISTORY_VIEW_HEIGHT);
@@ -323,11 +332,9 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 						.setTitle("連携アプリ選択")
 						.setItems(items, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
-								// COMMENT: 外部アプリへの送信用フォーマット調整
-								String str = textView.getText().toString()
-									.replaceAll("\n", ",")
-									.replaceFirst(",", " ")
-									.replaceAll(",$", "");
+								Integer number = (Integer) textView.getTag();
+								String str = historyData.get(number).getStringForExternalApp();
+
 								switch(which){
 								// Twitterでつぶやく
 								case 0:
@@ -357,53 +364,10 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		}
 	}
 
-
-	public static final HoCCard[] CARD_LIST;
-
-	static {
-		CARD_LIST = new HoCCard[]{
-				new HoCCard(2, "寄付"),
-				new HoCCard(2, "早馬"),
-				new HoCCard(2, "願いの泉"),
-				new HoCCard(2, "城壁"),
-				new HoCCard(2, "斥候"),
-				new HoCCard(3, "召集令状"),
-				new HoCCard(3, "焼き畑農業"),
-				new HoCCard(3, "隠れ家"),
-				new HoCCard(3, "交易船"),
-				new HoCCard(3, "破城槌"),
-				new HoCCard(3, "買収工作"),
-				new HoCCard(3, "魔法の護符"),
-				new HoCCard(3, "埋もれた財宝"),
-				new HoCCard(3, "御用商人"),
-				new HoCCard(4, "追いたてられた魔獣"),
-				new HoCCard(4, "シノビ"),
-				new HoCCard(4, "金貸し"),
-				new HoCCard(4, "図書館"),
-				new HoCCard(4, "星詠みの魔女"),
-				new HoCCard(4, "都市開発"),
-				new HoCCard(4, "歩兵大隊"),
-				new HoCCard(4, "補給部隊"),
-				new HoCCard(4, "魅了術の魔女"),
-				new HoCCard(5, "近衛騎士団"),
-				new HoCCard(5, "銀行"),
-				new HoCCard(5, "皇帝領"),
-				new HoCCard(5, "呪詛の魔女"),
-				new HoCCard(5, "冒険者"),
-				new HoCCard(5, "錬金術師"),
-				new HoCCard(6, "噂好きの公爵夫人"),
-				new HoCCard(2, "お金好きの妖精", Expantion.SECOND),
-				new HoCCard(3, "伝書鳩", Expantion.SECOND),
-				new HoCCard(3, "貿易商人", Expantion.SECOND),
-				new HoCCard(3, "弓兵隊", Expantion.SECOND),
-				new HoCCard(3, "課税", Expantion.SECOND),
-				new HoCCard(4, "クノイチ", Expantion.SECOND),
-				new HoCCard(4, "サムライ", Expantion.SECOND),
-				new HoCCard(4, "鉱山都市", Expantion.SECOND),
-				new HoCCard(4, "港町", Expantion.SECOND),
-				new HoCCard(4, "見習い魔女", Expantion.SECOND),
-				new HoCCard(5, "結盟", Expantion.SECOND),
-				new HoCCard(5, "割り符", Expantion.SECOND),
-		};
+	private History createHistory(List<HoCCard> cardList) {
+		if (cardList == null || cardList.isEmpty() || cardList.contains(null)) {
+			return History.EMPTY;
+		}
+		return new History(cardList);
 	}
 }

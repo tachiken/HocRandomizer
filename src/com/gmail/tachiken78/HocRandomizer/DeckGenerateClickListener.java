@@ -27,7 +27,6 @@ public class DeckGenerateClickListener implements OnClickListener {
 	public void onClick(View v) {
 		int choosenCount = 0;
 		HoCCard resultCards[] = new HoCCard[HocRandomizerMainActivity.CHOICE_CARD_KINDS_NUMBER];
-		String result = "";
 
 		ArrayList<HoCCard> cardListWork = new ArrayList<HoCCard>(includeFlags.keySet());
 		for(int cnt=includeFlags.size()-1; cnt>=0; cnt--) {
@@ -49,13 +48,10 @@ public class DeckGenerateClickListener implements OnClickListener {
 		Collections.sort(resultCardsList, new Comparator<HoCCard>(){
 
 			public int compare(HoCCard a, HoCCard b) {
-				return a.cost - b.cost;
+				return a.getCost() - b.getCost();
 			}
 		});
-		for(HoCCard c : resultCardsList) {
-			result += c + "\n";
-		}
 
-		register.registHistory(result, true);
+		register.registHistory(resultCardsList, true);
 	}
 }

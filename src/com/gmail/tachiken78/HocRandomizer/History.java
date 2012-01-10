@@ -71,6 +71,8 @@ public class History implements Serializable {
 			sb.append(card.getName());
 			sb.append(delimiter);
 		}
+		// 最終データの後ろにつけたデリミタは削除する
+		sb.delete(sb.length()-delimiter.length(), sb.length());
 		return sb.toString();
 	}
 }

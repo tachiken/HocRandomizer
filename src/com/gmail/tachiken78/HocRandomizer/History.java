@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * デッキ生成の履歴を表すデータクラス。
+ * カードセット生成の履歴を表すデータクラス。
  * @author cosax
  *
  */

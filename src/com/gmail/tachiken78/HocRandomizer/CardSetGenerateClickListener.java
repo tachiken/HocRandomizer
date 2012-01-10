@@ -13,17 +13,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 /**
- * デッキ生成ボタンを押した際の動作を実装するクラス。
+ * カードセット生成ボタンを押した際の動作を実装するクラス。
  * @author Tachiken
  *
  */
-public class DeckGenerateClickListener implements OnClickListener {
+public class CardSetGenerateClickListener implements OnClickListener {
 	Context context;
 	HistoryRegisterable register;
 	LinkedHashMap<HoCCard, Boolean> includeFlags;
 	LinkedHashMap<HoCCard, Boolean> excludeFlags;
 
-	public DeckGenerateClickListener(HocRandomizerMainActivity parent, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
+	public CardSetGenerateClickListener(HocRandomizerMainActivity parent, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
 	{
 		this.context = parent;
 		this.register = parent;

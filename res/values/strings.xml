@@ -5,7 +5,7 @@
 	<!-- Object Labels -->
 	<string name="button_label_01">必須カードの選択</string>
 	<string name="button_label_02">除外カードの選択</string>
-	<string name="button_label_03">デッキ生成</string>
+	<string name="button_label_03">カードセット生成</string>
 	<string name="button_label_04">リセット</string>
 	<string name="button_label_05">リセット</string>
 
@@ -19,11 +19,11 @@
 	<string name="help_text">このアプリケーションでは以下のようなことができます。\n
 				・必ず使いたいカードを指定してランダム生成\n
 				・使いたくないカードを指定してランダム生成\n
-				・生成したデッキ情報を他のアプリケーションと共有する（Twitterでつぶやくなど）\n
+				・生成したカードセット情報を他のアプリケーションと共有する（Twitterでつぶやくなど）\n
 				\n
 				注意点は以下の通りです。\n
 				・必須と除外両方に指定した場合、必須指定が優先されます。\n
-				・デッキ情報を他アプリケーションと共有するには、履歴表示部分を長押しして下さい。\n
+				・カードセット情報を他アプリケーションと共有するには、履歴表示部分を長押しして下さい。\n
 				</string>
 
 	<string name="version_header">バージョン：</string>

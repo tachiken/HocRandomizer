@@ -4,6 +4,11 @@ import java.util.LinkedHashMap;
 
 import android.content.Context;
 
+/**
+ * 除外カードの選択機能を実装するクラス。
+ * @author Tachiken
+ *
+ */
 public class ExcludeSelectionClickListener extends CardSelectionClickListener {
 	public ExcludeSelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags) {
 		super(context, cardnameList, excludeFlags);

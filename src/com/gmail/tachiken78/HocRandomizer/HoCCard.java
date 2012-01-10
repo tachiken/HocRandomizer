@@ -2,6 +2,11 @@ package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.Comparator;
 
+/**
+ * HoCで用いるカードを表すクラス。
+ * @author Tachiken
+ *
+ */
 public class HoCCard implements Comparator<HoCCard> {
 	private String name;
 	private int cost;

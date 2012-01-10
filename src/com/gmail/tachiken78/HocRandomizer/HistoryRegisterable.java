@@ -2,6 +2,11 @@ package com.gmail.tachiken78.HocRandomizer;
 
 import java.util.List;
 
+/**
+ * デッキデータの履歴を登録するためのインタフェース。
+ * @author Tachiken
+ *
+ */
 public interface HistoryRegisterable {
 	/**
 	 * 生成したデッキデータの履歴を登録する。

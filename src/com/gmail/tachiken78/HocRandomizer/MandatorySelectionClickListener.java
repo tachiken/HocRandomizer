@@ -4,6 +4,11 @@ import java.util.LinkedHashMap;
 
 import android.content.Context;
 
+/**
+ * 必須カードの選択機能を実装するクラス。
+ * @author Tachiken
+ *
+ */
 public class MandatorySelectionClickListener extends CardSelectionClickListener {
 	public MandatorySelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags) {
 		super(context, cardnameList, includeFlags);

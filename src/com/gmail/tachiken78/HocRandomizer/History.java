@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * デッキ生成の履歴を表すデータクラス。
+ * @author cosax
+ *
+ */
 public class History implements Serializable {
 
 	/** シリアルバージョン */

@@ -2,6 +2,11 @@ package com.gmail.tachiken78.HocRandomizer.util;
 
 import java.util.Calendar;
 
+/**
+ * 汎用的な機能を提供するユーティリティクラス。
+ * @author cosax
+ *
+ */
 public class Utility {
 
 	public static String getDate(){

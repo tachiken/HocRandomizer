@@ -12,6 +12,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * デッキ生成ボタンを押した際の動作を実装するクラス。
+ * @author Tachiken
+ *
+ */
 public class DeckGenerateClickListener implements OnClickListener {
 	Context context;
 	HistoryRegisterable register;

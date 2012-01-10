@@ -8,6 +8,13 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * カード選択機能を実装する抽象クラス。
+ * カードリストとチェックボックスを並べて表示し、それらを通した
+ * 選択状態の変更を司る。
+ * @author Tachiken
+ *
+ */
 public abstract class CardSelectionClickListener implements OnClickListener {
 	Context context;
 	String cardnameList[];

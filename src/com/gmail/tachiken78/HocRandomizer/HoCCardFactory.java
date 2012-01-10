@@ -3,6 +3,11 @@ package com.gmail.tachiken78.HocRandomizer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * カード一覧の管理および名称によるカード検索機能を提供するクラス。
+ * @author cosax
+ *
+ */
 public class HoCCardFactory {
 
 

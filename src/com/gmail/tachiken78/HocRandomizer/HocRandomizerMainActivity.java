@@ -29,6 +29,12 @@ import android.widget.TextView;
 
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
+/**
+ * 本アプリケーションのメインアクティビティクラス。
+ * 各GUI部品の初期化などを行う。
+ * @author Tachiken
+ *
+ */
 public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();

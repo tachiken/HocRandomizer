@@ -165,7 +165,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("このアプリについて")
 		.setView(layout)
-		.setPositiveButton("作者Twitter", new DialogInterface.OnClickListener() {
+		.setPositiveButton("アプリ作者Twitter", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				Intent intent=new Intent("android.intent.action.VIEW",
 						Uri.parse("http://twitter.com/intent/user?screen_name=CoolTachiken"));

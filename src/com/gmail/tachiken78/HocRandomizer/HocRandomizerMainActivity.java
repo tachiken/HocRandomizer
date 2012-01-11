@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gmail.tachiken78.HocRandomizer.R.id;
 
@@ -210,6 +211,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				for(HoCCard card : includeFlags.keySet()){
 					includeFlags.put(card, false);
 				}
+				Toast.makeText(HocRandomizerMainActivity.this, "必須カードの選択状態をリセットしました", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -220,6 +222,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				for(HoCCard card : excludeFlags.keySet()){
 					excludeFlags.put(card, false);
 				}
+				Toast.makeText(HocRandomizerMainActivity.this, "除外カードの選択状態をリセットしました", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

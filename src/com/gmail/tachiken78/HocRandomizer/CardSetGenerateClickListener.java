@@ -11,6 +11,7 @@ import com.gmail.tachiken78.HocRandomizer.util.Utility;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 /**
  * カードセット生成ボタンを押した際の動作を実装するクラス。
@@ -60,5 +61,6 @@ public class CardSetGenerateClickListener implements OnClickListener {
 		});
 
 		register.registHistory(resultCardsList, Utility.getDate());
+		Toast.makeText(context, "カードセット情報を生成しました", Toast.LENGTH_SHORT).show();
 	}
 }

@@ -3,6 +3,7 @@ package com.gmail.tachiken78.HocRandomizer;
 import java.util.LinkedHashMap;
 
 import android.content.Context;
+import android.widget.Button;
 
 /**
  * 必須カードの選択機能を実装するクラス。
@@ -10,8 +11,8 @@ import android.content.Context;
  *
  */
 public class MandatorySelectionClickListener extends CardSelectionClickListener {
-	public MandatorySelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags) {
-		super(context, cardnameList, includeFlags);
+	public MandatorySelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags) {
+		super(context, resetButton, cardnameList, includeFlags);
 	}
 
 	protected String getTitle() {

@@ -192,39 +192,41 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	private void refreshClickListener() {
 		refreshCardnameList();
 
-		/* 必須カード選択ボタンの設定を行う */
-		Button button01 = (Button)findViewById(R.id.button_id_01);
-		button01.setOnClickListener(new MandatorySelectionClickListener(this, cardnameList, includeFlags));
-
-		/* 除外カード選択ボタンの設定を行う */
-		Button button02 = (Button)findViewById(R.id.button_id_02);
-		button02.setOnClickListener(new ExcludeSelectionClickListener(this, cardnameList, excludeFlags));
-
 		/* カードセット生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
 		button03.setOnClickListener(new CardSetGenerateClickListener(this, includeFlags, excludeFlags));
 
 		/* 必須カードリセットボタンの設定を行う */
-		Button button04 = (Button)findViewById(R.id.button_id_04);
+		final Button button04 = (Button)findViewById(R.id.button_id_04);
 		button04.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				for(HoCCard card : includeFlags.keySet()){
 					includeFlags.put(card, false);
 				}
+				button04.setEnabled(false);
 				Toast.makeText(HocRandomizerMainActivity.this, "必須カードの選択状態をリセットしました", Toast.LENGTH_SHORT).show();
 			}
 		});
 
 		/* 除外カードリセットボタンの設定を行う */
-		Button button05 = (Button)findViewById(R.id.button_id_05);
+		final Button button05 = (Button)findViewById(R.id.button_id_05);
 		button05.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				for(HoCCard card : excludeFlags.keySet()){
 					excludeFlags.put(card, false);
 				}
+				button05.setEnabled(false);
 				Toast.makeText(HocRandomizerMainActivity.this, "除外カードの選択状態をリセットしました", Toast.LENGTH_SHORT).show();
 			}
 		});
+
+		/* 必須カード選択ボタンの設定を行う */
+		Button button01 = (Button)findViewById(R.id.button_id_01);
+		button01.setOnClickListener(new MandatorySelectionClickListener(this, button04, cardnameList, includeFlags));
+
+		/* 除外カード選択ボタンの設定を行う */
+		Button button02 = (Button)findViewById(R.id.button_id_02);
+		button02.setOnClickListener(new ExcludeSelectionClickListener(this, button05, cardnameList, excludeFlags));
 	}
 
 	private void refreshCardnameList() {

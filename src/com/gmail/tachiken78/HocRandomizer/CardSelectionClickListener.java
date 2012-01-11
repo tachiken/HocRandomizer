@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 /**
  * カード選択機能を実装する抽象クラス。
@@ -17,15 +18,18 @@ import android.view.View.OnClickListener;
  */
 public abstract class CardSelectionClickListener implements OnClickListener {
 	Context context;
+	Button resetButton;
 	String cardnameList[];
 	LinkedHashMap<HoCCard, Boolean> flags;
 	LinkedHashMap<HoCCard, Boolean> flagsBackup;
 
-	public CardSelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> flags)
+	public CardSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> flags)
 	{
 		this.context = context;
+		this.resetButton = resetButton;
 		this.cardnameList = cardnameList;
 		this.flags = flags;
+		refreshEnablity();
 	}
 
 	abstract protected String getTitle();
@@ -79,6 +83,7 @@ public abstract class CardSelectionClickListener implements OnClickListener {
 					i++;
 				}
 				flagsBackup = null;
+				refreshEnablity();
 			}
 		})
 		.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
@@ -89,5 +94,16 @@ public abstract class CardSelectionClickListener implements OnClickListener {
 			}
 		})
 		.show();
+	}
+
+	private void refreshEnablity(){
+		// １つでも選択状態にある場合、リセットボタンを有効にする
+		for(Boolean b : flags.values()){
+			if(b){
+				resetButton.setEnabled(true);
+				return;
+			}
+		}
+		resetButton.setEnabled(false);
 	}
 }

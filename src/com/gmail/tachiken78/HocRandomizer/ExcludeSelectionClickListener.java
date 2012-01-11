@@ -3,6 +3,7 @@ package com.gmail.tachiken78.HocRandomizer;
 import java.util.LinkedHashMap;
 
 import android.content.Context;
+import android.widget.Button;
 
 /**
  * 除外カードの選択機能を実装するクラス。
@@ -10,8 +11,8 @@ import android.content.Context;
  *
  */
 public class ExcludeSelectionClickListener extends CardSelectionClickListener {
-	public ExcludeSelectionClickListener(Context context, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags) {
-		super(context, cardnameList, excludeFlags);
+	public ExcludeSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags) {
+		super(context, resetButton, cardnameList, excludeFlags);
 	}
 
 	protected String getTitle() {

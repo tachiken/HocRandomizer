@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HocRandomizer</string>
+    <string name="app_name">はとくらんだむ</string>
 
 	<!-- Object Labels -->
 	<string name="button_label_01">必須カードの選択</string>

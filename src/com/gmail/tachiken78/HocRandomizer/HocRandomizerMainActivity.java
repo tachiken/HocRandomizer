@@ -19,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -320,41 +319,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			textView.setWidth(HISTORY_VIEW_WIDTH);
 			textView.setHeight(HISTORY_VIEW_HEIGHT);
 			textView.setTag(i);
-			textView.setOnLongClickListener(new OnLongClickListener() {
-				public boolean onLongClick(View view) {
-					final CharSequence[] items = {"Twitterでつぶやく", "その他のアプリと連携" };
-					AlertDialog.Builder builder = new AlertDialog.Builder(HocRandomizerMainActivity.this)
-						.setTitle("連携アプリ選択")
-						.setItems(items, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								Integer number = (Integer) textView.getTag();
-								String str = historyData.get(number).getStringForExternalApp();
-
-								switch(which){
-								// Twitterでつぶやく
-								case 0:
-									{
-										Intent intent=new Intent("android.intent.action.VIEW",
-												Uri.parse("http://twitter.com/intent/tweet?text=" + str + "&hashtags=hatokurandom"));
-										startActivity(intent);
-									}
-									break;
-								// その他のアプリと連携
-								case 1:
-									{
-										Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-										intent.setType("text/plain")
-											.putExtra(Intent.EXTRA_TEXT, str);
-										startActivity(Intent.createChooser(intent, "カードセット情報の共有"));
-									}
-									break;
-								}
-							}
-						});
-					builder.create().show();
-					return true;
-				}
-			});
+			textView.setOnLongClickListener(new HistoryViewLongClickListener(this, historyData));
 			layout.addView(textView);
 		}
 	}

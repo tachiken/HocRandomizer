@@ -51,6 +51,13 @@
 			android:paddingBottom="5dip"
 			android:text="@string/last_update"
 			/>
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="14.0sp"
+			android:paddingBottom="5dip"
+			android:text="@string/notices"
+			/>
 		/>
 	</LinearLayout>
 </ScrollView>

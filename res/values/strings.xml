@@ -28,7 +28,12 @@
 
 	<string name="version_header">バージョン：</string>
 	<string name="author_info">作者　　　：Tachiken</string>
-	<string name="last_update">最終更新日：2012/01/06</string>
+	<string name="last_update">最終更新日：2012/01/11</string>
+	<string name="notices">注意事項等：\n
+		・ハートオブクラウンは、FLIPFLOPs様の著作物です。\n
+		・本アプリケーションは、FLIPFLOPs様とは無関係です。\n
+		・本アプリケーションに関する問い合わせは、FLIPFLOPs様ではなく、アプリケーションの作者までお願いします。\n
+		・本アプリケーションの製作には万全を喫しておりますが、万が一使用することによって生じたいかなる損害についても、当方では補償致しかねます。ご了承下さい。</string>
 
 	<!-- Card Name List -->
 	<!-- リストは作ってみたものの、結局使わないことに -->

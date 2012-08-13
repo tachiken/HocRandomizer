@@ -95,6 +95,29 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				refreshClickListener();
 			}
 		});
+
+		CheckBox checkBox2 = (CheckBox)findViewById(id.checkbox_id_02);
+		checkBox2.setText("北限の魔女を使用する");
+		checkBox2.setChecked(true);
+		checkBox2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				CheckBox me = (CheckBox)view;
+				boolean checked = me.isChecked();
+				for(HoCCard card : HoCCardFactory.getCardList()){
+					if(card.getExpantion() == Expantion.THIRD){
+						if(checked){
+							includeFlags.put(card, false);
+							excludeFlags.put(card, false);
+						} else {
+							includeFlags.remove(card);
+							excludeFlags.remove(card);
+						}
+					}
+				}
+				refreshClickListener();
+			}
+		});
+
 		prepareTextViewsForHistory();
 		LoadHistoryFromLocal();
 		refreshHistory();

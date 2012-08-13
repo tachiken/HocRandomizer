@@ -9,4 +9,6 @@ public enum Expantion {
 	BASIC,
 	/** 極東辺境領 */
 	SECOND,
+	/** 北限の魔女 */
+	THIRD,
 }

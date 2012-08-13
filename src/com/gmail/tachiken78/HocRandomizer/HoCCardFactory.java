@@ -54,6 +54,19 @@ public class HoCCardFactory {
 		new HoCCard(4, "見習い魔女", Expantion.SECOND),
 		new HoCCard(5, "結盟", Expantion.SECOND),
 		new HoCCard(5, "割り符", Expantion.SECOND),
+		new HoCCard(2, "ケットシー", Expantion.THIRD),
+		new HoCCard(2, "幸運の銀貨", Expantion.THIRD),
+		new HoCCard(3, "洗礼", Expantion.THIRD),
+		new HoCCard(3, "呪いの人形", Expantion.THIRD),
+		new HoCCard(3, "名馬", Expantion.THIRD),
+		new HoCCard(4, "宮廷闘争", Expantion.THIRD),
+		new HoCCard(4, "ドワーフの宝石職人", Expantion.THIRD),
+		new HoCCard(4, "エルフの狙撃手", Expantion.THIRD),
+		new HoCCard(5, "地方役人", Expantion.THIRD),
+		new HoCCard(5, "豪商", Expantion.THIRD),
+		new HoCCard(5, "貴族の一人娘", Expantion.THIRD),
+		new HoCCard(6, "工業都市", Expantion.THIRD),
+		new HoCCard(6, "独占", Expantion.THIRD),
 	};
 
 	private static final Map<String, HoCCard> cardNameMap = new HashMap<String, HoCCard>();

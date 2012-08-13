@@ -6,11 +6,11 @@
 		android:numericShortcut="1" />
 	<item android:id="@+id/menu_dialog_id_02"
 		android:title="@string/menu_label_02"
-		android:icon="@*android:drawable/ic_menu_directions"
+		android:icon="@android:drawable/ic_menu_directions"
 		android:numericShortcut="2" />
 	<item android:id="@+id/menu_dialog_id_03"
 		android:title="@string/menu_label_03"
-		android:icon="@*android:drawable/ic_menu_help"
+		android:icon="@android:drawable/ic_menu_help"
 		android:numericShortcut="3" />
 	<item android:id="@+id/menu_dialog_id_04"
 		android:title="@string/menu_label_04"

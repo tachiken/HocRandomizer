@@ -11,4 +11,6 @@ public enum Expantion {
 	SECOND,
 	/** 北限の魔女 */
 	THIRD,
+	/** フェアリーガーデン */
+	FOURTH,
 }

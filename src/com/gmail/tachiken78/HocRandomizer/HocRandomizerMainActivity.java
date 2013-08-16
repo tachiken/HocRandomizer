@@ -118,6 +118,28 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			}
 		});
 
+		CheckBox checkBox3 = (CheckBox)findViewById(id.checkbox_id_03);
+		checkBox3.setText("フェアリーガーデンを使用する");
+		checkBox3.setChecked(true);
+		checkBox3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				CheckBox me = (CheckBox)view;
+				boolean checked = me.isChecked();
+				for(HoCCard card : HoCCardFactory.getCardList()){
+					if(card.getExpantion() == Expantion.FOURTH){
+						if(checked){
+							includeFlags.put(card, false);
+							excludeFlags.put(card, false);
+						} else {
+							includeFlags.remove(card);
+							excludeFlags.remove(card);
+						}
+					}
+				}
+				refreshClickListener();
+			}
+		});
+
 		prepareTextViewsForHistory();
 		LoadHistoryFromLocal();
 		refreshHistory();

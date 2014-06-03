@@ -13,4 +13,6 @@ public enum Expantion {
 	THIRD,
 	/** フェアリーガーデン */
 	FOURTH,
+	/** 六都市同盟 */
+	FIFTH,
 }

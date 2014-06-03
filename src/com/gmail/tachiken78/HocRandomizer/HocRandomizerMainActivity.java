@@ -73,6 +73,29 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		/* 基本セット選択用チェックボックスの設定を行う */
+		CheckBox checkBox0 = (CheckBox)findViewById(id.checkbox_id_00);
+		checkBox0.setText("基本セットを使用する");
+		checkBox0.setChecked(true);
+		checkBox0.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				CheckBox me = (CheckBox)view;
+				boolean checked = me.isChecked();
+				for(HoCCard card : HoCCardFactory.getCardList()){
+					if(card.getExpantion() == Expantion.BASIC){
+						if(checked){
+							includeFlags.put(card, false);
+							excludeFlags.put(card, false);
+						} else {
+							includeFlags.remove(card);
+							excludeFlags.remove(card);
+						}
+					}
+				}
+				refreshClickListener();
+			}
+		});
+
 		/* 拡張セット選択用チェックボックスの設定を行う */
 		CheckBox checkBox = (CheckBox)findViewById(id.checkbox_id_01);
 		checkBox.setText("極東辺境領を使用する");

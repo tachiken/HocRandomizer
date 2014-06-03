@@ -429,6 +429,16 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		if(checkBox2.isChecked()) return true;
 		if(checkBox3.isChecked()) return true;
 
+		// １つ以上チェックボックスを選択するよう促すメッセージを表示
+		new AlertDialog.Builder(this)
+		.setMessage("基本または拡張セットを１つ以上有効にして下さい。")
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+			}
+		})
+		.setCancelable(true)
+		.show();
+
 		return false;
 	}
 }

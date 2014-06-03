@@ -23,16 +23,21 @@ public class CardSetGenerateClickListener implements OnClickListener {
 	HistoryRegisterable register;
 	LinkedHashMap<HoCCard, Boolean> includeFlags;
 	LinkedHashMap<HoCCard, Boolean> excludeFlags;
+	AvailableExpantionCheckInterface expantionCheck;
 
-	public CardSetGenerateClickListener(HocRandomizerMainActivity parent, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags)
+	public CardSetGenerateClickListener(HocRandomizerMainActivity parent, LinkedHashMap<HoCCard, Boolean> includeFlags, LinkedHashMap<HoCCard, Boolean> excludeFlags, AvailableExpantionCheckInterface checkInterface)
 	{
 		this.context = parent;
 		this.register = parent;
 		this.includeFlags = includeFlags;
 		this.excludeFlags = excludeFlags;
+		this.expantionCheck = checkInterface;
 	}
 
 	public void onClick(View v) {
+		// 拡張が１つも選択されていない場合、何もしない
+		if(!expantionCheck.existsSelectedExpantion()) return;
+
 		int choosenCount = 0;
 		HoCCard resultCards[] = new HoCCard[HocRandomizerMainActivity.CHOICE_CARD_KINDS_NUMBER];
 

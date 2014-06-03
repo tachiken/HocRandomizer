@@ -279,7 +279,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 
 		/* カードセット生成ボタンの設定を行う */
 		Button button03 = (Button)findViewById(R.id.button_id_03);
-		button03.setOnClickListener(new CardSetGenerateClickListener(this, includeFlags, excludeFlags));
+		button03.setOnClickListener(new CardSetGenerateClickListener(this, includeFlags, excludeFlags, this));
 
 		/* 必須カードリセットボタンの設定を行う */
 		final Button button04 = (Button)findViewById(R.id.button_id_04);

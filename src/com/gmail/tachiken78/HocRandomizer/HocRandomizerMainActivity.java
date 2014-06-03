@@ -307,11 +307,11 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 
 		/* 必須カード選択ボタンの設定を行う */
 		Button button01 = (Button)findViewById(R.id.button_id_01);
-		button01.setOnClickListener(new MandatorySelectionClickListener(this, button04, cardnameList, includeFlags));
+		button01.setOnClickListener(new MandatorySelectionClickListener(this, button04, cardnameList, includeFlags, this));
 
 		/* 除外カード選択ボタンの設定を行う */
 		Button button02 = (Button)findViewById(R.id.button_id_02);
-		button02.setOnClickListener(new ExcludeSelectionClickListener(this, button05, cardnameList, excludeFlags));
+		button02.setOnClickListener(new ExcludeSelectionClickListener(this, button05, cardnameList, excludeFlags, this));
 	}
 
 	private void refreshCardnameList() {

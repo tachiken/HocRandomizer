@@ -11,8 +11,8 @@ import android.widget.Button;
  *
  */
 public class ExcludeSelectionClickListener extends CardSelectionClickListener {
-	public ExcludeSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags) {
-		super(context, resetButton, cardnameList, excludeFlags);
+	public ExcludeSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> excludeFlags, AvailableExpantionCheckInterface checkInterface) {
+		super(context, resetButton, cardnameList, excludeFlags, checkInterface);
 	}
 
 	protected String getTitle() {

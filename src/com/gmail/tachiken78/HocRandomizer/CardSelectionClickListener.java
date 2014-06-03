@@ -22,13 +22,15 @@ public abstract class CardSelectionClickListener implements OnClickListener {
 	String cardnameList[];
 	LinkedHashMap<HoCCard, Boolean> flags;
 	LinkedHashMap<HoCCard, Boolean> flagsBackup;
+	AvailableExpantionCheckInterface expantionCheck;
 
-	public CardSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> flags)
+	public CardSelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> flags, AvailableExpantionCheckInterface checkInterface)
 	{
 		this.context = context;
 		this.resetButton = resetButton;
 		this.cardnameList = cardnameList;
 		this.flags = flags;
+		this.expantionCheck = checkInterface;
 		refreshEnablity();
 	}
 
@@ -40,6 +42,8 @@ public abstract class CardSelectionClickListener implements OnClickListener {
 
 	@SuppressWarnings("unchecked")
 	public void onClick(View v) {
+		// もし選択された拡張（および基本）セットが１つもない場合は何もしない
+		if(!expantionCheck.existsSelectedExpantion()) return;
 		this.flagsBackup = (LinkedHashMap<HoCCard, Boolean>)flags.clone();
 		final boolean[] flagsContainer = new boolean[flags.size()];
 		int i=0;

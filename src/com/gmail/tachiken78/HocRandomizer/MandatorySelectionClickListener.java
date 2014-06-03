@@ -11,8 +11,8 @@ import android.widget.Button;
  *
  */
 public class MandatorySelectionClickListener extends CardSelectionClickListener {
-	public MandatorySelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags) {
-		super(context, resetButton, cardnameList, includeFlags);
+	public MandatorySelectionClickListener(Context context, Button resetButton, String[] cardnameList, LinkedHashMap<HoCCard, Boolean> includeFlags, AvailableExpantionCheckInterface checkInterface) {
+		super(context, resetButton, cardnameList, includeFlags, checkInterface);
 	}
 
 	protected String getTitle() {

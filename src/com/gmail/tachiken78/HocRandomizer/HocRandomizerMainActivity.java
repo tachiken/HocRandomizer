@@ -57,6 +57,10 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 	 * フェアリーガーデン選択用のcheckbox
 	 */
 	CheckBox checkBox3;
+	/**
+	 * 六都市同盟選択用のcheckbox
+	 */
+	CheckBox checkBox4;
 
 
 	/**
@@ -167,6 +171,28 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 				boolean checked = me.isChecked();
 				for(HoCCard card : HoCCardFactory.getCardList()){
 					if(card.getExpantion() == Expantion.FOURTH){
+						if(checked){
+							includeFlags.put(card, false);
+							excludeFlags.put(card, false);
+						} else {
+							includeFlags.remove(card);
+							excludeFlags.remove(card);
+						}
+					}
+				}
+				refreshClickListener();
+			}
+		});
+
+		checkBox4 = (CheckBox)findViewById(id.checkbox_id_04);
+		checkBox4.setText("六都市同盟を使用する");
+		checkBox4.setChecked(true);
+		checkBox4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				CheckBox me = (CheckBox)view;
+				boolean checked = me.isChecked();
+				for(HoCCard card : HoCCardFactory.getCardList()){
+					if(card.getExpantion() == Expantion.FIFTH){
 						if(checked){
 							includeFlags.put(card, false);
 							excludeFlags.put(card, false);
@@ -428,6 +454,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		if(checkBox0.isChecked()) return true;
 		if(checkBox2.isChecked()) return true;
 		if(checkBox3.isChecked()) return true;
+		if(checkBox4.isChecked()) return true;
 
 		// １つ以上チェックボックスを選択するよう促すメッセージを表示
 		new AlertDialog.Builder(this)

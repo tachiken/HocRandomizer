@@ -35,12 +35,29 @@ import com.gmail.tachiken78.HocRandomizer.R.id;
  * @author Tachiken
  *
  */
-public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable {
+public class HocRandomizerMainActivity extends Activity implements HistoryRegisterable, AvailableExpantionCheckInterface {
 	LinkedHashMap<HoCCard, Boolean> includeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	LinkedHashMap<HoCCard, Boolean> excludeFlags = new LinkedHashMap<HoCCard, Boolean>();
 	String[] cardnameList;
 	List<History> historyData = new ArrayList<History>(DEFAULT_HISTORY_MAX);
 	SharedPreferences pref;
+	/**
+	 * 基本セット選択用のcheckbox
+	 */
+	CheckBox checkBox0;
+	/**
+	 * 極東辺境領選択用のcheckbox
+	 */
+	CheckBox checkBox;
+	/**
+	 * 北限の魔女選択用のcheckbox
+	 */
+	CheckBox checkBox2;
+	/**
+	 * フェアリーガーデン選択用のcheckbox
+	 */
+	CheckBox checkBox3;
+
 
 	/**
 	 * 一回のプレーで選択するコモンカードの種類
@@ -74,7 +91,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		setContentView(R.layout.main);
 
 		/* 基本セット選択用チェックボックスの設定を行う */
-		CheckBox checkBox0 = (CheckBox)findViewById(id.checkbox_id_00);
+		checkBox0 = (CheckBox)findViewById(id.checkbox_id_00);
 		checkBox0.setText("基本セットを使用する");
 		checkBox0.setChecked(true);
 		checkBox0.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +114,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 		});
 
 		/* 拡張セット選択用チェックボックスの設定を行う */
-		CheckBox checkBox = (CheckBox)findViewById(id.checkbox_id_01);
+		checkBox = (CheckBox)findViewById(id.checkbox_id_01);
 		checkBox.setText("極東辺境領を使用する");
 		checkBox.setChecked(true);
 		checkBox.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +136,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			}
 		});
 
-		CheckBox checkBox2 = (CheckBox)findViewById(id.checkbox_id_02);
+		checkBox2 = (CheckBox)findViewById(id.checkbox_id_02);
 		checkBox2.setText("北限の魔女を使用する");
 		checkBox2.setChecked(true);
 		checkBox2.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +158,7 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			}
 		});
 
-		CheckBox checkBox3 = (CheckBox)findViewById(id.checkbox_id_03);
+		checkBox3 = (CheckBox)findViewById(id.checkbox_id_03);
 		checkBox3.setText("フェアリーガーデンを使用する");
 		checkBox3.setChecked(true);
 		checkBox3.setOnClickListener(new View.OnClickListener() {
@@ -402,5 +419,16 @@ public class HocRandomizerMainActivity extends Activity implements HistoryRegist
 			return History.EMPTY;
 		}
 		return new History(cardList);
+	}
+
+	@Override
+	public boolean existsSelectedExpantion() {
+		// １つでもチェックボックスが選択されていればtrueを返す。
+		if(checkBox.isChecked()) return true;
+		if(checkBox0.isChecked()) return true;
+		if(checkBox2.isChecked()) return true;
+		if(checkBox3.isChecked()) return true;
+
+		return false;
 	}
 }

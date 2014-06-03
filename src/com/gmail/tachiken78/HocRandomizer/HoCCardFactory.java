@@ -37,7 +37,7 @@ public class HoCCardFactory {
 		new HoCCard(4, "魅了術の魔女"),
 		new HoCCard(5, "近衛騎士団"),
 		new HoCCard(5, "銀行"),
-		new HoCCard(5, "皇帝領"),
+		new HoCCard(5, "皇室領"),
 		new HoCCard(5, "呪詛の魔女"),
 		new HoCCard(5, "冒険者"),
 		new HoCCard(5, "錬金術師"),
